@@ -1,0 +1,73 @@
+# ===================================================================
+# Spring Boot configuration.
+#
+# This configuration will be overridden by the Spring profile you use,
+# for example application-dev.yml if you use the "dev" profile.
+#
+# Full reference for Standard Spring Boot properties is available at:
+# http://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
+# ===================================================================
+# set -Dspring.profiles.active=<dev|sit|int> as JVM argument to run in desired profile
+# If no profile is specified explicitly, application will fall back to default profile, which is "local"
+
+spring:
+  application:
+    name: spark-mongodb-arangodb-demo
+  devtools:
+    add-properties: false
+    restart:
+      enabled: false
+      exclude: logs/*,application.log,*.log,*.log.*
+
+  #------------------------- MongoDB configuration -------------------------
+#  data:
+#    mongodb:
+#      uri: ${MONGODB_URL:mongodb://localhost:27017}
+#      database: ${MONGODB_DATABASE:product_db}
+#      auto-index-creation: true
+#      uuid-representation: standard
+  main:
+    log-startup-info: true
+#  task:
+#    execution:
+#      thread-name-prefix: spring-task-executor-
+#      pool:
+#        core-size: 8
+#        max-size: 32
+#        queue-capacity: 10000
+#        keep-alive: "10s"
+
+
+#------------------------- Actuators configuration -------------------------
+# If not specified '/actuator' is taken as default. If specified must start with '/'
+#management.endpoints.web.base-path=/
+# Set it as "*", if you want to expose all actuator endpoints
+management:
+  endpoint:
+    health:
+      probes:
+        enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: info,health,metrics
+  metrics:
+    tags:
+      application: ${spring.application.name}
+
+server:
+  port: 8080
+  forward-headers-strategy: framework
+#    servlet:
+#        context-path: /api
+logging:
+  level:
+    ROOT: info
+    '[org.mongodb.driver]': warn
+#        '[org.springframework.data.mongodb.core.MongoTemplate]': debug
+debug: false
+
+# ===================================================================
+# Application specific properties
+# Add your own application properties here
+# ===================================================================
