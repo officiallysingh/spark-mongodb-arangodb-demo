@@ -1,16 +1,3 @@
-#spring:
-#  data:
-#    mongodb:
-#      uri: mongodb+srv://devuser:devuser@cluster0.cnatwcf.mongodb.net/?retryWrites=true&w=majority
-#      database: product_db
-#      auto-index-creation: true
-#      uuid-representation: standard
-
-server:
-  port: 8080
-  #servlet:
-  #context-path:
-
 logging:
   logback:
     rollingpolicy:
@@ -22,9 +9,9 @@ logging:
     ROOT: info
 debug: false
 
-  # ===================================================================
-  # Application specific properties
-  # Add your own application properties here
-  # ===================================================================
+# ===================================================================
+# Application specific properties
+# Add your own application properties here
+# ===================================================================
 
         
