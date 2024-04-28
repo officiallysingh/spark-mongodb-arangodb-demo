@@ -13,7 +13,8 @@ class SparkConfiguration {
 
   private final SparkProperties sparkProperties;
 
-  @Bean
+//  @Bean
+  @Bean(name = "sparkSession", destroyMethod = "stop")
   SparkSession sparkSession() {
     return SparkSession.builder()
         .appName(this.sparkProperties.getAppName())
