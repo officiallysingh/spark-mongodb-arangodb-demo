@@ -49,21 +49,58 @@ public class SparkProperties {
     @Valid
     public static class Mongo {
 
+        @NotEmpty
+        private String url;
+
         @NotNull
-        private Connection connection;
+        private Feature feature = new Feature();
+
+        @NotNull
+        private Inference inference = new Inference();
+
+        @NotNull
+        private Label label = new Label();
 
         @Getter
         @Setter
         @NoArgsConstructor
         @ToString
         @Valid
-        public static class Connection {
-
-            @NotEmpty
-            private String url;
+        public static class Feature {
 
             @NotEmpty
             private String database;
+
+            @NotEmpty
+            private String collection;
+        }
+
+        @Getter
+        @Setter
+        @NoArgsConstructor
+        @ToString
+        @Valid
+        public static class Inference {
+
+            @NotEmpty
+            private String database;
+
+            @NotEmpty
+            private String collection;
+        }
+
+        @Getter
+        @Setter
+        @NoArgsConstructor
+        @ToString
+        @Valid
+        public static class Label {
+
+            @NotEmpty
+            private String database;
+
+            @NotEmpty
+            private String collection;
         }
     }
 
@@ -77,14 +114,12 @@ public class SparkProperties {
         @NotEmpty
         private String[] endpoints;
 
-        @NotEmpty
         private String username = "root";
 
-        @NotEmpty
-        private String password;
+        private String password = "";
 
         @NotEmpty
-        private String database = "system";
+        private String database = "_system";
 
         private boolean sslEnabled;
 

@@ -1,0 +1,1400 @@
+[{
+  "1": 1000,
+  "2": 2000,
+  "_id": {
+    "$oid": "662f896a2e9a426b080d9ade"
+  },
+  "record_key": "ChIKBwgBEgMY6AcKBwgCEgMY0A8=",
+  "label_id": 300,
+  "quantity": "",
+  "label_value": 1000,
+  "timestamp": {
+    "$date": "2024-04-20T12:00:00.000Z"
+  }
+},
+  {
+    "1": 1000,
+    "2": 2000,
+    "_id": {
+      "$oid": "662f896a2e9a426b080d9adf"
+    },
+    "record_key": "ChIKBwgBEgMY6AcKBwgCEgMY0A8=",
+    "label_id": 301,
+    "quantity": "",
+    "label_value": 2000,
+    "timestamp": {
+      "$date": "2024-04-20T12:00:00.000Z"
+    }
+  },
+  {
+    "1": 1000,
+    "2": 2001,
+    "_id": {
+      "$oid": "662f896a2e9a426b080d9ae0"
+    },
+    "record_key": "ChIKBwgBEgMY6AcKBwgCEgMY0Q8=",
+    "label_id": 300,
+    "quantity": "",
+    "label_value": 1500,
+    "timestamp": {
+      "$date": "2024-04-20T12:00:00.000Z"
+    }
+  },
+  {
+    "1": 1000,
+    "2": 2001,
+    "_id": {
+      "$oid": "662f896a2e9a426b080d9ae1"
+    },
+    "record_key": "ChIKBwgBEgMY6AcKBwgCEgMY0Q8=",
+    "label_id": 301,
+    "quantity": "",
+    "label_value": 2500,
+    "timestamp": {
+      "$date": "2024-04-20T12:00:00.000Z"
+    }
+  },
+  {
+    "1": 1000,
+    "2": 2002,
+    "_id": {
+      "$oid": "662f896a2e9a426b080d9ae2"
+    },
+    "record_key": "ChIKBwgBEgMY6AcKBwgCEgMY0g8=",
+    "label_id": 300,
+    "quantity": "",
+    "label_value": 1200,
+    "timestamp": {
+      "$date": "2024-04-20T12:00:00.000Z"
+    }
+  },
+  {
+    "1": 1000,
+    "2": 2002,
+    "_id": {
+      "$oid": "662f896a2e9a426b080d9ae3"
+    },
+    "record_key": "ChIKBwgBEgMY6AcKBwgCEgMY0g8=",
+    "label_id": 301,
+    "quantity": "",
+    "label_value": 2200,
+    "timestamp": {
+      "$date": "2024-04-20T12:00:00.000Z"
+    }
+  },
+  {
+    "1": 1000,
+    "2": 2003,
+    "_id": {
+      "$oid": "662f896a2e9a426b080d9ae4"
+    },
+    "record_key": "ChIKBwgBEgMY6AcKBwgCEgMY0w8=",
+    "label_id": 300,
+    "quantity": "",
+    "label_value": 1700,
+    "timestamp": {
+      "$date": "2024-04-20T12:00:00.000Z"
+    }
+  },
+  {
+    "1": 1000,
+    "2": 2003,
+    "_id": {
+      "$oid": "662f896a2e9a426b080d9ae5"
+    },
+    "record_key": "ChIKBwgBEgMY6AcKBwgCEgMY0w8=",
+    "label_id": 301,
+    "quantity": "",
+    "label_value": 2700,
+    "timestamp": {
+      "$date": "2024-04-20T12:00:00.000Z"
+    }
+  },
+  {
+    "1": 1000,
+    "2": 2004,
+    "_id": {
+      "$oid": "662f896a2e9a426b080d9ae6"
+    },
+    "record_key": "ChIKBwgBEgMY6AcKBwgCEgMY1A8=",
+    "label_id": 300,
+    "quantity": "",
+    "label_value": 1900,
+    "timestamp": {
+      "$date": "2024-04-20T12:00:00.000Z"
+    }
+  },
+  {
+    "1": 1000,
+    "2": 2004,
+    "_id": {
+      "$oid": "662f896a2e9a426b080d9ae7"
+    },
+    "record_key": "ChIKBwgBEgMY6AcKBwgCEgMY1A8=",
+    "label_id": 301,
+    "quantity": "",
+    "label_value": 2900,
+    "timestamp": {
+      "$date": "2024-04-20T12:00:00.000Z"
+    }
+  },
+  {
+    "1": 1000,
+    "2": 2000,
+    "_id": {
+      "$oid": "662f896a2e9a426b080d9ae8"
+    },
+    "record_key": "ChIKBwgBEgMY6AcKBwgCEgMY0A8=",
+    "label_id": 300,
+    "quantity": "",
+    "label_value": 1000,
+    "timestamp": {
+      "$date": "2024-04-21T12:00:00.000Z"
+    }
+  },
+  {
+    "1": 1000,
+    "2": 2000,
+    "_id": {
+      "$oid": "662f896a2e9a426b080d9ae9"
+    },
+    "record_key": "ChIKBwgBEgMY6AcKBwgCEgMY0A8=",
+    "label_id": 301,
+    "quantity": "",
+    "label_value": 2000,
+    "timestamp": {
+      "$date": "2024-04-21T12:00:00.000Z"
+    }
+  },
+  {
+    "1": 1000,
+    "2": 2001,
+    "_id": {
+      "$oid": "662f896a2e9a426b080d9aea"
+    },
+    "record_key": "ChIKBwgBEgMY6AcKBwgCEgMY0Q8=",
+    "label_id": 300,
+    "quantity": "",
+    "label_value": 1500,
+    "timestamp": {
+      "$date": "2024-04-21T12:00:00.000Z"
+    }
+  },
+  {
+    "1": 1000,
+    "2": 2001,
+    "_id": {
+      "$oid": "662f896a2e9a426b080d9aeb"
+    },
+    "record_key": "ChIKBwgBEgMY6AcKBwgCEgMY0Q8=",
+    "label_id": 301,
+    "quantity": "",
+    "label_value": 2500,
+    "timestamp": {
+      "$date": "2024-04-21T12:00:00.000Z"
+    }
+  },
+  {
+    "1": 1000,
+    "2": 2002,
+    "_id": {
+      "$oid": "662f896a2e9a426b080d9aec"
+    },
+    "record_key": "ChIKBwgBEgMY6AcKBwgCEgMY0g8=",
+    "label_id": 300,
+    "quantity": "",
+    "label_value": 1200,
+    "timestamp": {
+      "$date": "2024-04-21T12:00:00.000Z"
+    }
+  },
+  {
+    "1": 1000,
+    "2": 2002,
+    "_id": {
+      "$oid": "662f896a2e9a426b080d9aed"
+    },
+    "record_key": "ChIKBwgBEgMY6AcKBwgCEgMY0g8=",
+    "label_id": 301,
+    "quantity": "",
+    "label_value": 2200,
+    "timestamp": {
+      "$date": "2024-04-21T12:00:00.000Z"
+    }
+  },
+  {
+    "1": 1000,
+    "2": 2003,
+    "_id": {
+      "$oid": "662f896a2e9a426b080d9aee"
+    },
+    "record_key": "ChIKBwgBEgMY6AcKBwgCEgMY0w8=",
+    "label_id": 300,
+    "quantity": "",
+    "label_value": 1700,
+    "timestamp": {
+      "$date": "2024-04-21T12:00:00.000Z"
+    }
+  },
+  {
+    "1": 1000,
+    "2": 2003,
+    "_id": {
+      "$oid": "662f896a2e9a426b080d9aef"
+    },
+    "record_key": "ChIKBwgBEgMY6AcKBwgCEgMY0w8=",
+    "label_id": 301,
+    "quantity": "",
+    "label_value": 2700,
+    "timestamp": {
+      "$date": "2024-04-21T12:00:00.000Z"
+    }
+  },
+  {
+    "1": 1000,
+    "2": 2004,
+    "_id": {
+      "$oid": "662f896a2e9a426b080d9af0"
+    },
+    "record_key": "ChIKBwgBEgMY6AcKBwgCEgMY1A8=",
+    "label_id": 300,
+    "quantity": "",
+    "label_value": 1900,
+    "timestamp": {
+      "$date": "2024-04-21T12:00:00.000Z"
+    }
+  },
+  {
+    "1": 1000,
+    "2": 2004,
+    "_id": {
+      "$oid": "662f896a2e9a426b080d9af1"
+    },
+    "record_key": "ChIKBwgBEgMY6AcKBwgCEgMY1A8=",
+    "label_id": 301,
+    "quantity": "",
+    "label_value": 2900,
+    "timestamp": {
+      "$date": "2024-04-21T12:00:00.000Z"
+    }
+  },
+  {
+    "1": 1001,
+    "2": 2000,
+    "_id": {
+      "$oid": "662f896a2e9a426b080d9af2"
+    },
+    "record_key": "ChIKBwgBEgMY6QcKBwgCEgMY0A8=",
+    "label_id": 300,
+    "quantity": "",
+    "label_value": 1000,
+    "timestamp": {
+      "$date": "2024-04-20T12:00:00.000Z"
+    }
+  },
+  {
+    "1": 1001,
+    "2": 2000,
+    "_id": {
+      "$oid": "662f896a2e9a426b080d9af3"
+    },
+    "record_key": "ChIKBwgBEgMY6QcKBwgCEgMY0A8=",
+    "label_id": 301,
+    "quantity": "",
+    "label_value": 2000,
+    "timestamp": {
+      "$date": "2024-04-20T12:00:00.000Z"
+    }
+  },
+  {
+    "1": 1001,
+    "2": 2001,
+    "_id": {
+      "$oid": "662f896a2e9a426b080d9af4"
+    },
+    "record_key": "ChIKBwgBEgMY6QcKBwgCEgMY0Q8=",
+    "label_id": 300,
+    "quantity": "",
+    "label_value": 1500,
+    "timestamp": {
+      "$date": "2024-04-20T12:00:00.000Z"
+    }
+  },
+  {
+    "1": 1001,
+    "2": 2001,
+    "_id": {
+      "$oid": "662f896a2e9a426b080d9af5"
+    },
+    "record_key": "ChIKBwgBEgMY6QcKBwgCEgMY0Q8=",
+    "label_id": 301,
+    "quantity": "",
+    "label_value": 2500,
+    "timestamp": {
+      "$date": "2024-04-20T12:00:00.000Z"
+    }
+  },
+  {
+    "1": 1001,
+    "2": 2002,
+    "_id": {
+      "$oid": "662f896a2e9a426b080d9af6"
+    },
+    "record_key": "ChIKBwgBEgMY6QcKBwgCEgMY0g8=",
+    "label_id": 300,
+    "quantity": "",
+    "label_value": 1200,
+    "timestamp": {
+      "$date": "2024-04-20T12:00:00.000Z"
+    }
+  },
+  {
+    "1": 1001,
+    "2": 2002,
+    "_id": {
+      "$oid": "662f896a2e9a426b080d9af7"
+    },
+    "record_key": "ChIKBwgBEgMY6QcKBwgCEgMY0g8=",
+    "label_id": 301,
+    "quantity": "",
+    "label_value": 2200,
+    "timestamp": {
+      "$date": "2024-04-20T12:00:00.000Z"
+    }
+  },
+  {
+    "1": 1001,
+    "2": 2003,
+    "_id": {
+      "$oid": "662f896a2e9a426b080d9af8"
+    },
+    "record_key": "ChIKBwgBEgMY6QcKBwgCEgMY0w8=",
+    "label_id": 300,
+    "quantity": "",
+    "label_value": 1700,
+    "timestamp": {
+      "$date": "2024-04-20T12:00:00.000Z"
+    }
+  },
+  {
+    "1": 1001,
+    "2": 2003,
+    "_id": {
+      "$oid": "662f896a2e9a426b080d9af9"
+    },
+    "record_key": "ChIKBwgBEgMY6QcKBwgCEgMY0w8=",
+    "label_id": 301,
+    "quantity": "",
+    "label_value": 2700,
+    "timestamp": {
+      "$date": "2024-04-20T12:00:00.000Z"
+    }
+  },
+  {
+    "1": 1001,
+    "2": 2004,
+    "_id": {
+      "$oid": "662f896a2e9a426b080d9afa"
+    },
+    "record_key": "ChIKBwgBEgMY6QcKBwgCEgMY1A8=",
+    "label_id": 300,
+    "quantity": "",
+    "label_value": 1900,
+    "timestamp": {
+      "$date": "2024-04-20T12:00:00.000Z"
+    }
+  },
+  {
+    "1": 1001,
+    "2": 2004,
+    "_id": {
+      "$oid": "662f896a2e9a426b080d9afb"
+    },
+    "record_key": "ChIKBwgBEgMY6QcKBwgCEgMY1A8=",
+    "label_id": 301,
+    "quantity": "",
+    "label_value": 2900,
+    "timestamp": {
+      "$date": "2024-04-20T12:00:00.000Z"
+    }
+  },
+  {
+    "1": 1001,
+    "2": 2000,
+    "_id": {
+      "$oid": "662f896a2e9a426b080d9afc"
+    },
+    "record_key": "ChIKBwgBEgMY6QcKBwgCEgMY0A8=",
+    "label_id": 300,
+    "quantity": "",
+    "label_value": 1000,
+    "timestamp": {
+      "$date": "2024-04-21T12:00:00.000Z"
+    }
+  },
+  {
+    "1": 1001,
+    "2": 2000,
+    "_id": {
+      "$oid": "662f896a2e9a426b080d9afd"
+    },
+    "record_key": "ChIKBwgBEgMY6QcKBwgCEgMY0A8=",
+    "label_id": 301,
+    "quantity": "",
+    "label_value": 2000,
+    "timestamp": {
+      "$date": "2024-04-21T12:00:00.000Z"
+    }
+  },
+  {
+    "1": 1001,
+    "2": 2001,
+    "_id": {
+      "$oid": "662f896a2e9a426b080d9afe"
+    },
+    "record_key": "ChIKBwgBEgMY6QcKBwgCEgMY0Q8=",
+    "label_id": 300,
+    "quantity": "",
+    "label_value": 1500,
+    "timestamp": {
+      "$date": "2024-04-21T12:00:00.000Z"
+    }
+  },
+  {
+    "1": 1001,
+    "2": 2001,
+    "_id": {
+      "$oid": "662f896a2e9a426b080d9aff"
+    },
+    "record_key": "ChIKBwgBEgMY6QcKBwgCEgMY0Q8=",
+    "label_id": 301,
+    "quantity": "",
+    "label_value": 2500,
+    "timestamp": {
+      "$date": "2024-04-21T12:00:00.000Z"
+    }
+  },
+  {
+    "1": 1001,
+    "2": 2002,
+    "_id": {
+      "$oid": "662f896a2e9a426b080d9b00"
+    },
+    "record_key": "ChIKBwgBEgMY6QcKBwgCEgMY0g8=",
+    "label_id": 300,
+    "quantity": "",
+    "label_value": 1200,
+    "timestamp": {
+      "$date": "2024-04-21T12:00:00.000Z"
+    }
+  },
+  {
+    "1": 1001,
+    "2": 2002,
+    "_id": {
+      "$oid": "662f896a2e9a426b080d9b01"
+    },
+    "record_key": "ChIKBwgBEgMY6QcKBwgCEgMY0g8=",
+    "label_id": 301,
+    "quantity": "",
+    "label_value": 2200,
+    "timestamp": {
+      "$date": "2024-04-21T12:00:00.000Z"
+    }
+  },
+  {
+    "1": 1001,
+    "2": 2003,
+    "_id": {
+      "$oid": "662f896a2e9a426b080d9b02"
+    },
+    "record_key": "ChIKBwgBEgMY6QcKBwgCEgMY0w8=",
+    "label_id": 300,
+    "quantity": "",
+    "label_value": 1700,
+    "timestamp": {
+      "$date": "2024-04-21T12:00:00.000Z"
+    }
+  },
+  {
+    "1": 1001,
+    "2": 2003,
+    "_id": {
+      "$oid": "662f896a2e9a426b080d9b03"
+    },
+    "record_key": "ChIKBwgBEgMY6QcKBwgCEgMY0w8=",
+    "label_id": 301,
+    "quantity": "",
+    "label_value": 2700,
+    "timestamp": {
+      "$date": "2024-04-21T12:00:00.000Z"
+    }
+  },
+  {
+    "1": 1001,
+    "2": 2004,
+    "_id": {
+      "$oid": "662f896a2e9a426b080d9b04"
+    },
+    "record_key": "ChIKBwgBEgMY6QcKBwgCEgMY1A8=",
+    "label_id": 300,
+    "quantity": "",
+    "label_value": 1900,
+    "timestamp": {
+      "$date": "2024-04-21T12:00:00.000Z"
+    }
+  },
+  {
+    "1": 1001,
+    "2": 2004,
+    "_id": {
+      "$oid": "662f896a2e9a426b080d9b05"
+    },
+    "record_key": "ChIKBwgBEgMY6QcKBwgCEgMY1A8=",
+    "label_id": 301,
+    "quantity": "",
+    "label_value": 2900,
+    "timestamp": {
+      "$date": "2024-04-21T12:00:00.000Z"
+    }
+  },
+  {
+    "1": 1002,
+    "2": 2000,
+    "_id": {
+      "$oid": "662f896a2e9a426b080d9b06"
+    },
+    "record_key": "ChIKBwgBEgMY6gcKBwgCEgMY0A8=",
+    "label_id": 300,
+    "quantity": "",
+    "label_value": 1000,
+    "timestamp": {
+      "$date": "2024-04-20T12:00:00.000Z"
+    }
+  },
+  {
+    "1": 1002,
+    "2": 2000,
+    "_id": {
+      "$oid": "662f896a2e9a426b080d9b07"
+    },
+    "record_key": "ChIKBwgBEgMY6gcKBwgCEgMY0A8=",
+    "label_id": 301,
+    "quantity": "",
+    "label_value": 2000,
+    "timestamp": {
+      "$date": "2024-04-20T12:00:00.000Z"
+    }
+  },
+  {
+    "1": 1002,
+    "2": 2001,
+    "_id": {
+      "$oid": "662f896a2e9a426b080d9b08"
+    },
+    "record_key": "ChIKBwgBEgMY6gcKBwgCEgMY0Q8=",
+    "label_id": 300,
+    "quantity": "",
+    "label_value": 1500,
+    "timestamp": {
+      "$date": "2024-04-20T12:00:00.000Z"
+    }
+  },
+  {
+    "1": 1002,
+    "2": 2001,
+    "_id": {
+      "$oid": "662f896a2e9a426b080d9b09"
+    },
+    "record_key": "ChIKBwgBEgMY6gcKBwgCEgMY0Q8=",
+    "label_id": 301,
+    "quantity": "",
+    "label_value": 2500,
+    "timestamp": {
+      "$date": "2024-04-20T12:00:00.000Z"
+    }
+  },
+  {
+    "1": 1002,
+    "2": 2002,
+    "_id": {
+      "$oid": "662f896a2e9a426b080d9b0a"
+    },
+    "record_key": "ChIKBwgBEgMY6gcKBwgCEgMY0g8=",
+    "label_id": 300,
+    "quantity": "",
+    "label_value": 1200,
+    "timestamp": {
+      "$date": "2024-04-20T12:00:00.000Z"
+    }
+  },
+  {
+    "1": 1002,
+    "2": 2002,
+    "_id": {
+      "$oid": "662f896a2e9a426b080d9b0b"
+    },
+    "record_key": "ChIKBwgBEgMY6gcKBwgCEgMY0g8=",
+    "label_id": 301,
+    "quantity": "",
+    "label_value": 2200,
+    "timestamp": {
+      "$date": "2024-04-20T12:00:00.000Z"
+    }
+  },
+  {
+    "1": 1002,
+    "2": 2003,
+    "_id": {
+      "$oid": "662f896a2e9a426b080d9b0c"
+    },
+    "record_key": "ChIKBwgBEgMY6gcKBwgCEgMY0w8=",
+    "label_id": 300,
+    "quantity": "",
+    "label_value": 1700,
+    "timestamp": {
+      "$date": "2024-04-20T12:00:00.000Z"
+    }
+  },
+  {
+    "1": 1002,
+    "2": 2003,
+    "_id": {
+      "$oid": "662f896a2e9a426b080d9b0d"
+    },
+    "record_key": "ChIKBwgBEgMY6gcKBwgCEgMY0w8=",
+    "label_id": 301,
+    "quantity": "",
+    "label_value": 2700,
+    "timestamp": {
+      "$date": "2024-04-20T12:00:00.000Z"
+    }
+  },
+  {
+    "1": 1002,
+    "2": 2004,
+    "_id": {
+      "$oid": "662f896a2e9a426b080d9b0e"
+    },
+    "record_key": "ChIKBwgBEgMY6gcKBwgCEgMY1A8=",
+    "label_id": 300,
+    "quantity": "",
+    "label_value": 1900,
+    "timestamp": {
+      "$date": "2024-04-20T12:00:00.000Z"
+    }
+  },
+  {
+    "1": 1002,
+    "2": 2004,
+    "_id": {
+      "$oid": "662f896a2e9a426b080d9b0f"
+    },
+    "record_key": "ChIKBwgBEgMY6gcKBwgCEgMY1A8=",
+    "label_id": 301,
+    "quantity": "",
+    "label_value": 2900,
+    "timestamp": {
+      "$date": "2024-04-20T12:00:00.000Z"
+    }
+  },
+  {
+    "1": 1002,
+    "2": 2000,
+    "_id": {
+      "$oid": "662f896a2e9a426b080d9b10"
+    },
+    "record_key": "ChIKBwgBEgMY6gcKBwgCEgMY0A8=",
+    "label_id": 300,
+    "quantity": "",
+    "label_value": 1000,
+    "timestamp": {
+      "$date": "2024-04-21T12:00:00.000Z"
+    }
+  },
+  {
+    "1": 1002,
+    "2": 2000,
+    "_id": {
+      "$oid": "662f896a2e9a426b080d9b11"
+    },
+    "record_key": "ChIKBwgBEgMY6gcKBwgCEgMY0A8=",
+    "label_id": 301,
+    "quantity": "",
+    "label_value": 2000,
+    "timestamp": {
+      "$date": "2024-04-21T12:00:00.000Z"
+    }
+  },
+  {
+    "1": 1002,
+    "2": 2001,
+    "_id": {
+      "$oid": "662f896a2e9a426b080d9b12"
+    },
+    "record_key": "ChIKBwgBEgMY6gcKBwgCEgMY0Q8=",
+    "label_id": 300,
+    "quantity": "",
+    "label_value": 1500,
+    "timestamp": {
+      "$date": "2024-04-21T12:00:00.000Z"
+    }
+  },
+  {
+    "1": 1002,
+    "2": 2001,
+    "_id": {
+      "$oid": "662f896a2e9a426b080d9b13"
+    },
+    "record_key": "ChIKBwgBEgMY6gcKBwgCEgMY0Q8=",
+    "label_id": 301,
+    "quantity": "",
+    "label_value": 2500,
+    "timestamp": {
+      "$date": "2024-04-21T12:00:00.000Z"
+    }
+  },
+  {
+    "1": 1002,
+    "2": 2002,
+    "_id": {
+      "$oid": "662f896a2e9a426b080d9b14"
+    },
+    "record_key": "ChIKBwgBEgMY6gcKBwgCEgMY0g8=",
+    "label_id": 300,
+    "quantity": "",
+    "label_value": 1200,
+    "timestamp": {
+      "$date": "2024-04-21T12:00:00.000Z"
+    }
+  },
+  {
+    "1": 1002,
+    "2": 2002,
+    "_id": {
+      "$oid": "662f896a2e9a426b080d9b15"
+    },
+    "record_key": "ChIKBwgBEgMY6gcKBwgCEgMY0g8=",
+    "label_id": 301,
+    "quantity": "",
+    "label_value": 2200,
+    "timestamp": {
+      "$date": "2024-04-21T12:00:00.000Z"
+    }
+  },
+  {
+    "1": 1002,
+    "2": 2003,
+    "_id": {
+      "$oid": "662f896a2e9a426b080d9b16"
+    },
+    "record_key": "ChIKBwgBEgMY6gcKBwgCEgMY0w8=",
+    "label_id": 300,
+    "quantity": "",
+    "label_value": 1700,
+    "timestamp": {
+      "$date": "2024-04-21T12:00:00.000Z"
+    }
+  },
+  {
+    "1": 1002,
+    "2": 2003,
+    "_id": {
+      "$oid": "662f896a2e9a426b080d9b17"
+    },
+    "record_key": "ChIKBwgBEgMY6gcKBwgCEgMY0w8=",
+    "label_id": 301,
+    "quantity": "",
+    "label_value": 2700,
+    "timestamp": {
+      "$date": "2024-04-21T12:00:00.000Z"
+    }
+  },
+  {
+    "1": 1002,
+    "2": 2004,
+    "_id": {
+      "$oid": "662f896a2e9a426b080d9b18"
+    },
+    "record_key": "ChIKBwgBEgMY6gcKBwgCEgMY1A8=",
+    "label_id": 300,
+    "quantity": "",
+    "label_value": 1900,
+    "timestamp": {
+      "$date": "2024-04-21T12:00:00.000Z"
+    }
+  },
+  {
+    "1": 1002,
+    "2": 2004,
+    "_id": {
+      "$oid": "662f896a2e9a426b080d9b19"
+    },
+    "record_key": "ChIKBwgBEgMY6gcKBwgCEgMY1A8=",
+    "label_id": 301,
+    "quantity": "",
+    "label_value": 2900,
+    "timestamp": {
+      "$date": "2024-04-21T12:00:00.000Z"
+    }
+  },
+  {
+    "1": 1003,
+    "2": 2000,
+    "_id": {
+      "$oid": "662f896a2e9a426b080d9b1a"
+    },
+    "record_key": "ChIKBwgBEgMY6wcKBwgCEgMY0A8=",
+    "label_id": 300,
+    "quantity": "",
+    "label_value": 1000,
+    "timestamp": {
+      "$date": "2024-04-20T12:00:00.000Z"
+    }
+  },
+  {
+    "1": 1003,
+    "2": 2000,
+    "_id": {
+      "$oid": "662f896a2e9a426b080d9b1b"
+    },
+    "record_key": "ChIKBwgBEgMY6wcKBwgCEgMY0A8=",
+    "label_id": 301,
+    "quantity": "",
+    "label_value": 2000,
+    "timestamp": {
+      "$date": "2024-04-20T12:00:00.000Z"
+    }
+  },
+  {
+    "1": 1003,
+    "2": 2001,
+    "_id": {
+      "$oid": "662f896a2e9a426b080d9b1c"
+    },
+    "record_key": "ChIKBwgBEgMY6wcKBwgCEgMY0Q8=",
+    "label_id": 300,
+    "quantity": "",
+    "label_value": 1500,
+    "timestamp": {
+      "$date": "2024-04-20T12:00:00.000Z"
+    }
+  },
+  {
+    "1": 1003,
+    "2": 2001,
+    "_id": {
+      "$oid": "662f896a2e9a426b080d9b1d"
+    },
+    "record_key": "ChIKBwgBEgMY6wcKBwgCEgMY0Q8=",
+    "label_id": 301,
+    "quantity": "",
+    "label_value": 2500,
+    "timestamp": {
+      "$date": "2024-04-20T12:00:00.000Z"
+    }
+  },
+  {
+    "1": 1003,
+    "2": 2002,
+    "_id": {
+      "$oid": "662f896a2e9a426b080d9b1e"
+    },
+    "record_key": "ChIKBwgBEgMY6wcKBwgCEgMY0g8=",
+    "label_id": 300,
+    "quantity": "",
+    "label_value": 1200,
+    "timestamp": {
+      "$date": "2024-04-20T12:00:00.000Z"
+    }
+  },
+  {
+    "1": 1003,
+    "2": 2002,
+    "_id": {
+      "$oid": "662f896a2e9a426b080d9b1f"
+    },
+    "record_key": "ChIKBwgBEgMY6wcKBwgCEgMY0g8=",
+    "label_id": 301,
+    "quantity": "",
+    "label_value": 2200,
+    "timestamp": {
+      "$date": "2024-04-20T12:00:00.000Z"
+    }
+  },
+  {
+    "1": 1003,
+    "2": 2003,
+    "_id": {
+      "$oid": "662f896a2e9a426b080d9b20"
+    },
+    "record_key": "ChIKBwgBEgMY6wcKBwgCEgMY0w8=",
+    "label_id": 300,
+    "quantity": "",
+    "label_value": 1700,
+    "timestamp": {
+      "$date": "2024-04-20T12:00:00.000Z"
+    }
+  },
+  {
+    "1": 1003,
+    "2": 2003,
+    "_id": {
+      "$oid": "662f896a2e9a426b080d9b21"
+    },
+    "record_key": "ChIKBwgBEgMY6wcKBwgCEgMY0w8=",
+    "label_id": 301,
+    "quantity": "",
+    "label_value": 2700,
+    "timestamp": {
+      "$date": "2024-04-20T12:00:00.000Z"
+    }
+  },
+  {
+    "1": 1003,
+    "2": 2004,
+    "_id": {
+      "$oid": "662f896a2e9a426b080d9b22"
+    },
+    "record_key": "ChIKBwgBEgMY6wcKBwgCEgMY1A8=",
+    "label_id": 300,
+    "quantity": "",
+    "label_value": 1900,
+    "timestamp": {
+      "$date": "2024-04-20T12:00:00.000Z"
+    }
+  },
+  {
+    "1": 1003,
+    "2": 2004,
+    "_id": {
+      "$oid": "662f896a2e9a426b080d9b23"
+    },
+    "record_key": "ChIKBwgBEgMY6wcKBwgCEgMY1A8=",
+    "label_id": 301,
+    "quantity": "",
+    "label_value": 2900,
+    "timestamp": {
+      "$date": "2024-04-20T12:00:00.000Z"
+    }
+  },
+  {
+    "1": 1003,
+    "2": 2000,
+    "_id": {
+      "$oid": "662f896a2e9a426b080d9b24"
+    },
+    "record_key": "ChIKBwgBEgMY6wcKBwgCEgMY0A8=",
+    "label_id": 300,
+    "quantity": "",
+    "label_value": 1000,
+    "timestamp": {
+      "$date": "2024-04-21T12:00:00.000Z"
+    }
+  },
+  {
+    "1": 1003,
+    "2": 2000,
+    "_id": {
+      "$oid": "662f896a2e9a426b080d9b25"
+    },
+    "record_key": "ChIKBwgBEgMY6wcKBwgCEgMY0A8=",
+    "label_id": 301,
+    "quantity": "",
+    "label_value": 2000,
+    "timestamp": {
+      "$date": "2024-04-21T12:00:00.000Z"
+    }
+  },
+  {
+    "1": 1003,
+    "2": 2001,
+    "_id": {
+      "$oid": "662f896a2e9a426b080d9b26"
+    },
+    "record_key": "ChIKBwgBEgMY6wcKBwgCEgMY0Q8=",
+    "label_id": 300,
+    "quantity": "",
+    "label_value": 1500,
+    "timestamp": {
+      "$date": "2024-04-21T12:00:00.000Z"
+    }
+  },
+  {
+    "1": 1003,
+    "2": 2001,
+    "_id": {
+      "$oid": "662f896a2e9a426b080d9b27"
+    },
+    "record_key": "ChIKBwgBEgMY6wcKBwgCEgMY0Q8=",
+    "label_id": 301,
+    "quantity": "",
+    "label_value": 2500,
+    "timestamp": {
+      "$date": "2024-04-21T12:00:00.000Z"
+    }
+  },
+  {
+    "1": 1003,
+    "2": 2002,
+    "_id": {
+      "$oid": "662f896a2e9a426b080d9b28"
+    },
+    "record_key": "ChIKBwgBEgMY6wcKBwgCEgMY0g8=",
+    "label_id": 300,
+    "quantity": "",
+    "label_value": 1200,
+    "timestamp": {
+      "$date": "2024-04-21T12:00:00.000Z"
+    }
+  },
+  {
+    "1": 1003,
+    "2": 2002,
+    "_id": {
+      "$oid": "662f896a2e9a426b080d9b29"
+    },
+    "record_key": "ChIKBwgBEgMY6wcKBwgCEgMY0g8=",
+    "label_id": 301,
+    "quantity": "",
+    "label_value": 2200,
+    "timestamp": {
+      "$date": "2024-04-21T12:00:00.000Z"
+    }
+  },
+  {
+    "1": 1003,
+    "2": 2003,
+    "_id": {
+      "$oid": "662f896a2e9a426b080d9b2a"
+    },
+    "record_key": "ChIKBwgBEgMY6wcKBwgCEgMY0w8=",
+    "label_id": 300,
+    "quantity": "",
+    "label_value": 1700,
+    "timestamp": {
+      "$date": "2024-04-21T12:00:00.000Z"
+    }
+  },
+  {
+    "1": 1003,
+    "2": 2003,
+    "_id": {
+      "$oid": "662f896a2e9a426b080d9b2b"
+    },
+    "record_key": "ChIKBwgBEgMY6wcKBwgCEgMY0w8=",
+    "label_id": 301,
+    "quantity": "",
+    "label_value": 2700,
+    "timestamp": {
+      "$date": "2024-04-21T12:00:00.000Z"
+    }
+  },
+  {
+    "1": 1003,
+    "2": 2004,
+    "_id": {
+      "$oid": "662f896a2e9a426b080d9b2c"
+    },
+    "record_key": "ChIKBwgBEgMY6wcKBwgCEgMY1A8=",
+    "label_id": 300,
+    "quantity": "",
+    "label_value": 1900,
+    "timestamp": {
+      "$date": "2024-04-21T12:00:00.000Z"
+    }
+  },
+  {
+    "1": 1003,
+    "2": 2004,
+    "_id": {
+      "$oid": "662f896a2e9a426b080d9b2d"
+    },
+    "record_key": "ChIKBwgBEgMY6wcKBwgCEgMY1A8=",
+    "label_id": 301,
+    "quantity": "",
+    "label_value": 2900,
+    "timestamp": {
+      "$date": "2024-04-21T12:00:00.000Z"
+    }
+  },
+  {
+    "1": 1004,
+    "2": 2000,
+    "_id": {
+      "$oid": "662f896a2e9a426b080d9b2e"
+    },
+    "record_key": "ChIKBwgBEgMY7AcKBwgCEgMY0A8=",
+    "label_id": 300,
+    "quantity": "",
+    "label_value": 1000,
+    "timestamp": {
+      "$date": "2024-04-20T12:00:00.000Z"
+    }
+  },
+  {
+    "1": 1004,
+    "2": 2000,
+    "_id": {
+      "$oid": "662f896a2e9a426b080d9b2f"
+    },
+    "record_key": "ChIKBwgBEgMY7AcKBwgCEgMY0A8=",
+    "label_id": 301,
+    "quantity": "",
+    "label_value": 2000,
+    "timestamp": {
+      "$date": "2024-04-20T12:00:00.000Z"
+    }
+  },
+  {
+    "1": 1004,
+    "2": 2001,
+    "_id": {
+      "$oid": "662f896a2e9a426b080d9b30"
+    },
+    "record_key": "ChIKBwgBEgMY7AcKBwgCEgMY0Q8=",
+    "label_id": 300,
+    "quantity": "",
+    "label_value": 1500,
+    "timestamp": {
+      "$date": "2024-04-20T12:00:00.000Z"
+    }
+  },
+  {
+    "1": 1004,
+    "2": 2001,
+    "_id": {
+      "$oid": "662f896a2e9a426b080d9b31"
+    },
+    "record_key": "ChIKBwgBEgMY7AcKBwgCEgMY0Q8=",
+    "label_id": 301,
+    "quantity": "",
+    "label_value": 2500,
+    "timestamp": {
+      "$date": "2024-04-20T12:00:00.000Z"
+    }
+  },
+  {
+    "1": 1004,
+    "2": 2002,
+    "_id": {
+      "$oid": "662f896a2e9a426b080d9b32"
+    },
+    "record_key": "ChIKBwgBEgMY7AcKBwgCEgMY0g8=",
+    "label_id": 300,
+    "quantity": "",
+    "label_value": 1200,
+    "timestamp": {
+      "$date": "2024-04-20T12:00:00.000Z"
+    }
+  },
+  {
+    "1": 1004,
+    "2": 2002,
+    "_id": {
+      "$oid": "662f896a2e9a426b080d9b33"
+    },
+    "record_key": "ChIKBwgBEgMY7AcKBwgCEgMY0g8=",
+    "label_id": 301,
+    "quantity": "",
+    "label_value": 2200,
+    "timestamp": {
+      "$date": "2024-04-20T12:00:00.000Z"
+    }
+  },
+  {
+    "1": 1004,
+    "2": 2003,
+    "_id": {
+      "$oid": "662f896a2e9a426b080d9b34"
+    },
+    "record_key": "ChIKBwgBEgMY7AcKBwgCEgMY0w8=",
+    "label_id": 300,
+    "quantity": "",
+    "label_value": 1700,
+    "timestamp": {
+      "$date": "2024-04-20T12:00:00.000Z"
+    }
+  },
+  {
+    "1": 1004,
+    "2": 2003,
+    "_id": {
+      "$oid": "662f896a2e9a426b080d9b35"
+    },
+    "record_key": "ChIKBwgBEgMY7AcKBwgCEgMY0w8=",
+    "label_id": 301,
+    "quantity": "",
+    "label_value": 2700,
+    "timestamp": {
+      "$date": "2024-04-20T12:00:00.000Z"
+    }
+  },
+  {
+    "1": 1004,
+    "2": 2004,
+    "_id": {
+      "$oid": "662f896a2e9a426b080d9b36"
+    },
+    "record_key": "ChIKBwgBEgMY7AcKBwgCEgMY1A8=",
+    "label_id": 300,
+    "quantity": "",
+    "label_value": 1900,
+    "timestamp": {
+      "$date": "2024-04-20T12:00:00.000Z"
+    }
+  },
+  {
+    "1": 1004,
+    "2": 2004,
+    "_id": {
+      "$oid": "662f896a2e9a426b080d9b37"
+    },
+    "record_key": "ChIKBwgBEgMY7AcKBwgCEgMY1A8=",
+    "label_id": 301,
+    "quantity": "",
+    "label_value": 2900,
+    "timestamp": {
+      "$date": "2024-04-20T12:00:00.000Z"
+    }
+  },
+  {
+    "1": 1004,
+    "2": 2000,
+    "_id": {
+      "$oid": "662f896a2e9a426b080d9b38"
+    },
+    "record_key": "ChIKBwgBEgMY7AcKBwgCEgMY0A8=",
+    "label_id": 300,
+    "quantity": "",
+    "label_value": 1000,
+    "timestamp": {
+      "$date": "2024-04-21T12:00:00.000Z"
+    }
+  },
+  {
+    "1": 1004,
+    "2": 2000,
+    "_id": {
+      "$oid": "662f896a2e9a426b080d9b39"
+    },
+    "record_key": "ChIKBwgBEgMY7AcKBwgCEgMY0A8=",
+    "label_id": 301,
+    "quantity": "",
+    "label_value": 2000,
+    "timestamp": {
+      "$date": "2024-04-21T12:00:00.000Z"
+    }
+  },
+  {
+    "1": 1004,
+    "2": 2001,
+    "_id": {
+      "$oid": "662f896a2e9a426b080d9b3a"
+    },
+    "record_key": "ChIKBwgBEgMY7AcKBwgCEgMY0Q8=",
+    "label_id": 300,
+    "quantity": "",
+    "label_value": 1500,
+    "timestamp": {
+      "$date": "2024-04-21T12:00:00.000Z"
+    }
+  },
+  {
+    "1": 1004,
+    "2": 2001,
+    "_id": {
+      "$oid": "662f896a2e9a426b080d9b3b"
+    },
+    "record_key": "ChIKBwgBEgMY7AcKBwgCEgMY0Q8=",
+    "label_id": 301,
+    "quantity": "",
+    "label_value": 2500,
+    "timestamp": {
+      "$date": "2024-04-21T12:00:00.000Z"
+    }
+  },
+  {
+    "1": 1004,
+    "2": 2002,
+    "_id": {
+      "$oid": "662f896a2e9a426b080d9b3c"
+    },
+    "record_key": "ChIKBwgBEgMY7AcKBwgCEgMY0g8=",
+    "label_id": 300,
+    "quantity": "",
+    "label_value": 1200,
+    "timestamp": {
+      "$date": "2024-04-21T12:00:00.000Z"
+    }
+  },
+  {
+    "1": 1004,
+    "2": 2002,
+    "_id": {
+      "$oid": "662f896a2e9a426b080d9b3d"
+    },
+    "record_key": "ChIKBwgBEgMY7AcKBwgCEgMY0g8=",
+    "label_id": 301,
+    "quantity": "",
+    "label_value": 2200,
+    "timestamp": {
+      "$date": "2024-04-21T12:00:00.000Z"
+    }
+  },
+  {
+    "1": 1004,
+    "2": 2003,
+    "_id": {
+      "$oid": "662f896a2e9a426b080d9b3e"
+    },
+    "record_key": "ChIKBwgBEgMY7AcKBwgCEgMY0w8=",
+    "label_id": 300,
+    "quantity": "",
+    "label_value": 1700,
+    "timestamp": {
+      "$date": "2024-04-21T12:00:00.000Z"
+    }
+  },
+  {
+    "1": 1004,
+    "2": 2003,
+    "_id": {
+      "$oid": "662f896a2e9a426b080d9b3f"
+    },
+    "record_key": "ChIKBwgBEgMY7AcKBwgCEgMY0w8=",
+    "label_id": 301,
+    "quantity": "",
+    "label_value": 2700,
+    "timestamp": {
+      "$date": "2024-04-21T12:00:00.000Z"
+    }
+  },
+  {
+    "1": 1004,
+    "2": 2004,
+    "_id": {
+      "$oid": "662f896a2e9a426b080d9b40"
+    },
+    "record_key": "ChIKBwgBEgMY7AcKBwgCEgMY1A8=",
+    "label_id": 300,
+    "quantity": "",
+    "label_value": 1900,
+    "timestamp": {
+      "$date": "2024-04-21T12:00:00.000Z"
+    }
+  },
+  {
+    "1": 1004,
+    "2": 2004,
+    "_id": {
+      "$oid": "662f896a2e9a426b080d9b41"
+    },
+    "record_key": "ChIKBwgBEgMY7AcKBwgCEgMY1A8=",
+    "label_id": 301,
+    "quantity": "",
+    "label_value": 2900,
+    "timestamp": {
+      "$date": "2024-04-21T12:00:00.000Z"
+    }
+  }]
