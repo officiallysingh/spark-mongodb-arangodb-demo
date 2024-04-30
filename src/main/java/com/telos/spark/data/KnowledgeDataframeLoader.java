@@ -1,5 +1,10 @@
 package com.telos.spark.data;
 
+import static com.telos.spark.Schemas.Common.CUSTOMER_ID;
+import static com.telos.spark.Schemas.Common.CUSTOMER_NAME;
+import static com.telos.spark.Schemas.Common.PRODUCT_ID;
+import static com.telos.spark.Schemas.Common.PRODUCT_NAME;
+
 import com.telos.spark.Schemas;
 import com.telos.spark.conf.SparkOptions;
 import com.telos.spark.conf.SparkProperties;
@@ -8,11 +13,6 @@ import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
 import org.springframework.stereotype.Component;
-
-import static com.telos.spark.Schemas.Common.CUSTOMER_ID;
-import static com.telos.spark.Schemas.Common.CUSTOMER_NAME;
-import static com.telos.spark.Schemas.Common.PRODUCT_ID;
-import static com.telos.spark.Schemas.Common.PRODUCT_NAME;
 
 @Component
 @RequiredArgsConstructor
@@ -41,7 +41,6 @@ public class KnowledgeDataframeLoader {
         .load()
         .withColumnRenamed(Schemas.Arango._KEY.name(), CUSTOMER_ID)
         .withColumnRenamed(Schemas.RetailCustomer.NAME.name(), CUSTOMER_NAME);
-
   }
 
   //  ------------- Products -------------
