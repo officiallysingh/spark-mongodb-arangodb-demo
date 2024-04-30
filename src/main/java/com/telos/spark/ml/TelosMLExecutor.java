@@ -55,7 +55,7 @@ public class TelosMLExecutor {
                     .col("customer_id")
                     .equalTo(inferencesDf.col("customer_id"))
                     .and(featuresDf.col("product_id").equalTo(inferencesDf.col("product_id"))),
-                "inner")
+                "left")
             .select(
                 featuresDf.col("customer_id"),
                 featuresDf.col("product_id"),
@@ -66,47 +66,49 @@ public class TelosMLExecutor {
     //    featuresInferenceJoined.show(50, false);
 
     // Then join the result with labelsDf
-    Dataset<Row> finalJoinedDf =
-        featuresInferenceJoined.join(
-            labelsDf,
-            featuresInferenceJoined
-                .col("customer_id")
-                .equalTo(labelsDf.col("customer_id"))
-                .and(featuresInferenceJoined.col("product_id").equalTo(labelsDf.col("product_id"))),
-            "inner");
-
-    // Selecting columns to match the desired output
     Dataset<Row> result =
-        finalJoinedDf.select(
-            featuresInferenceJoined.col("customer_id"),
-            featuresInferenceJoined.col("product_id"),
-            featuresInferenceJoined.col("feature_id"),
-            featuresInferenceJoined.col("feature_value"),
-            featuresInferenceJoined.col("inference_id"),
-            featuresInferenceJoined.col("inference_value"),
-            labelsDf.col("label_id"),
-            labelsDf.col("label_value"));
+        featuresInferenceJoined
+            .join(
+                labelsDf,
+                featuresInferenceJoined
+                    .col("customer_id")
+                    .equalTo(labelsDf.col("customer_id"))
+                    .and(
+                        featuresInferenceJoined
+                            .col("product_id")
+                            .equalTo(labelsDf.col("product_id"))),
+                "left")
+            .select(
+                featuresInferenceJoined.col("customer_id"),
+                featuresInferenceJoined.col("product_id"),
+                featuresInferenceJoined.col("feature_id"),
+                featuresInferenceJoined.col("feature_value"),
+                featuresInferenceJoined.col("inference_id"),
+                featuresInferenceJoined.col("inference_value"),
+                labelsDf.col("label_id"),
+                labelsDf.col("label_value"));
 
     // Show the result or save it to a file or database
-//    result.show(1000, false);
+    //    result.show(1000, false);
 
-    result = result.join(retailCustomersDf, "customer_id", "inner");
-//    result.show(1000, false);
+    result = result.join(retailCustomersDf, "customer_id", "left");
+    //    result.show(1000, false);
 
-
-    result = result.join(productsDf, "product_id", "inner").select(
-            result.col("customer_id"),
-            result.col("customer_name"),
-            result.col("product_id"),
-            productsDf.col("product_name"),
-            result.col("feature_id"),
-            result.col("feature_value"),
-            result.col("inference_id"),
-            result.col("inference_value"),
-            result.col("label_id"),
-            result.col("label_value")
-    );;
+    result =
+        result
+            .join(productsDf, "product_id", "inner")
+            .select(
+                result.col("customer_id"),
+                result.col("customer_name"),
+                result.col("product_id"),
+                productsDf.col("product_name"),
+                result.col("feature_id"),
+                result.col("feature_value"),
+                result.col("inference_id"),
+                result.col("inference_value"),
+                result.col("label_id"),
+                result.col("label_value"));
+    ;
     result.show(1000, false);
-
   }
 }
