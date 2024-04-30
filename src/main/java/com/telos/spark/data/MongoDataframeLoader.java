@@ -1,14 +1,15 @@
 package com.telos.spark.data;
 
+import static com.telos.spark.Schemas.Common.CUSTOMER_ID;
+import static com.telos.spark.Schemas.Common.PRODUCT_ID;
+
+import com.telos.spark.Schemas;
 import com.telos.spark.conf.SparkOptions;
 import com.telos.spark.conf.SparkProperties;
 import lombok.RequiredArgsConstructor;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
-import org.apache.spark.sql.types.DataTypes;
-import org.apache.spark.sql.types.StructField;
-import org.apache.spark.sql.types.StructType;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -20,21 +21,6 @@ public class MongoDataframeLoader {
   private final SparkProperties sparkProperties;
 
   //  ------------- Features -------------
-  private static StructType featuresSchema() {
-    return DataTypes.createStructType(
-        new StructField[] {
-          //          DataTypes.createStructField("_id", DataTypes.StringType, false),
-          //          DataTypes.createStructField("record_key", DataTypes.StringType, false),
-          DataTypes.createStructField("1", DataTypes.IntegerType, false),
-          DataTypes.createStructField("2", DataTypes.IntegerType, false),
-          DataTypes.createStructField("feature_id", DataTypes.IntegerType, false),
-          DataTypes.createStructField("feature_value", DataTypes.IntegerType, false),
-          //          DataTypes.createStructField("quantity", DataTypes.StringType, true),
-          //          DataTypes.createStructField("window_type", DataTypes.StringType, false),
-          //          DataTypes.createStructField("timestamp", DataTypes.TimestampType, false)
-        });
-  }
-
   public Dataset<Row> featuresDataframe() {
     return this.sparkSession
         .read()
@@ -45,27 +31,14 @@ public class MongoDataframeLoader {
         .option(
             SparkOptions.Mongo.COLLECTION,
             this.sparkProperties.getMongo().getFeature().getCollection())
-        .schema(featuresSchema())
+        .schema(Schemas.Feature.SCHEMA)
         .load()
-        .withColumnRenamed("1", "customer_id")
-        .withColumnRenamed("2", "product_id")
-        .drop("1", "2");
+        .withColumnRenamed(Schemas.Feature.ONE.name(), CUSTOMER_ID)
+        .withColumnRenamed(Schemas.Feature.TWO.name(), PRODUCT_ID)
+        .drop(Schemas.Feature.ONE.name(), Schemas.Feature.TWO.name());
   }
 
   //  ------------- Inferences -------------
-  private static StructType inferencesSchema() {
-    return DataTypes.createStructType(
-        new StructField[] {
-          //          DataTypes.createStructField("_id", DataTypes.StringType, false),
-          //          DataTypes.createStructField("record_key", DataTypes.StringType, false),
-          DataTypes.createStructField("1", DataTypes.IntegerType, false),
-          DataTypes.createStructField("2", DataTypes.IntegerType, false),
-          DataTypes.createStructField("inference_id", DataTypes.IntegerType, false),
-          DataTypes.createStructField("inference_value", DataTypes.IntegerType, false),
-          //          DataTypes.createStructField("quantity", DataTypes.StringType, true),
-          //          DataTypes.createStructField("timestamp", DataTypes.TimestampType, false)
-        });
-  }
 
   public Dataset<Row> inferencesDataframe() {
     return this.sparkSession
@@ -78,28 +51,14 @@ public class MongoDataframeLoader {
         .option(
             SparkOptions.Mongo.COLLECTION,
             this.sparkProperties.getMongo().getInference().getCollection())
-        .schema(inferencesSchema())
+        .schema(Schemas.Inference.SCHEMA)
         .load()
-        .withColumnRenamed("1", "customer_id")
-        .withColumnRenamed("2", "product_id")
-        .drop("1", "2");
+        .withColumnRenamed(Schemas.Inference.ONE.name(), CUSTOMER_ID)
+        .withColumnRenamed(Schemas.Inference.TWO.name(), PRODUCT_ID)
+        .drop(Schemas.Inference.ONE.name(), Schemas.Inference.TWO.name());
   }
 
   //  ------------- Labels -------------
-  private static StructType labelsSchema() {
-    return DataTypes.createStructType(
-        new StructField[] {
-          //          DataTypes.createStructField("_id", DataTypes.StringType, false),
-          //          DataTypes.createStructField("record_key", DataTypes.StringType, false),
-          DataTypes.createStructField("1", DataTypes.IntegerType, false),
-          DataTypes.createStructField("2", DataTypes.IntegerType, false),
-          DataTypes.createStructField("label_id", DataTypes.IntegerType, false),
-          DataTypes.createStructField("label_value", DataTypes.IntegerType, false),
-          //          DataTypes.createStructField("quantity", DataTypes.StringType, true),
-          //          DataTypes.createStructField("timestamp", DataTypes.TimestampType, false)
-        });
-  }
-
   public Dataset<Row> labelsDataframe() {
     return this.sparkSession
         .read()
@@ -110,10 +69,10 @@ public class MongoDataframeLoader {
         .option(
             SparkOptions.Mongo.COLLECTION,
             this.sparkProperties.getMongo().getLabel().getCollection())
-        .schema(labelsSchema())
+        .schema(Schemas.Label.SCHEMA)
         .load()
-        .withColumnRenamed("1", "customer_id")
-        .withColumnRenamed("2", "product_id")
-        .drop("1", "2");
+        .withColumnRenamed(Schemas.Label.ONE.name(), CUSTOMER_ID)
+        .withColumnRenamed(Schemas.Label.TWO.name(), PRODUCT_ID)
+        .drop(Schemas.Label.ONE.name(), Schemas.Label.TWO.name());
   }
 }

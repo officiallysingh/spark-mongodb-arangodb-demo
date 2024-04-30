@@ -1,16 +1,18 @@
 package com.telos.spark.data;
 
+import com.telos.spark.Schemas;
 import com.telos.spark.conf.SparkOptions;
 import com.telos.spark.conf.SparkProperties;
 import lombok.RequiredArgsConstructor;
-import org.apache.commons.lang3.ArrayUtils;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
-import org.apache.spark.sql.types.DataTypes;
-import org.apache.spark.sql.types.StructField;
-import org.apache.spark.sql.types.StructType;
 import org.springframework.stereotype.Component;
+
+import static com.telos.spark.Schemas.Common.CUSTOMER_ID;
+import static com.telos.spark.Schemas.Common.CUSTOMER_NAME;
+import static com.telos.spark.Schemas.Common.PRODUCT_ID;
+import static com.telos.spark.Schemas.Common.PRODUCT_NAME;
 
 @Component
 @RequiredArgsConstructor
@@ -20,25 +22,12 @@ public class KnowledgeDataframeLoader {
 
   private final SparkProperties sparkProperties;
 
-  private static final String COLLECTION_PRODUCT = "product";
-
   private static final String COLLECTION_RETAIL_CUSTOMER = "retail_customer";
 
-  private static final StructField[] ARANGO_SYSTEM_FIELDS =
-      new StructField[] {
-        //        DataTypes.createStructField("_id", DataTypes.StringType, false),
-        DataTypes.createStructField("_key", DataTypes.StringType, false),
-        //        DataTypes.createStructField("_rev", DataTypes.StringType, false)
-      };
+  private static final String COLLECTION_PRODUCT = "product";
 
   //  ------------- Retail Customers -------------
-  private static StructType retailCustomerSchema() {
-    return DataTypes.createStructType(
-        ArrayUtils.addAll(
-            ARANGO_SYSTEM_FIELDS, DataTypes.createStructField("name", DataTypes.StringType, true)));
-  }
-
-  public Dataset<Row> retailCustomerDataframe() {
+  public Dataset<Row> retailCustomersDataframe() {
     return this.sparkSession
         .read()
         .format(SparkOptions.Arango.FORMAT)
@@ -48,20 +37,15 @@ public class KnowledgeDataframeLoader {
         .option(SparkOptions.Arango.PASSWORD, this.sparkProperties.getArango().getPassword())
         .option(SparkOptions.Arango.SSL_ENABLED, this.sparkProperties.getArango().isSslEnabled())
         .option(SparkOptions.Arango.TABLE, COLLECTION_RETAIL_CUSTOMER)
-        .schema(retailCustomerSchema())
+        .schema(Schemas.RetailCustomer.SCHEMA)
         .load()
-        .withColumnRenamed("_key", "customer_id")
-        .withColumnRenamed("name", "customer_name");
+        .withColumnRenamed(Schemas.Arango._KEY.name(), CUSTOMER_ID)
+        .withColumnRenamed(Schemas.RetailCustomer.NAME.name(), CUSTOMER_NAME);
+
   }
 
   //  ------------- Products -------------
-  private static StructType productSchema() {
-    return DataTypes.createStructType(
-        ArrayUtils.addAll(
-            ARANGO_SYSTEM_FIELDS, DataTypes.createStructField("name", DataTypes.StringType, true)));
-  }
-
-  public Dataset<Row> productDataframe() {
+  public Dataset<Row> productsDataframe() {
     return this.sparkSession
         .read()
         .format(SparkOptions.Arango.FORMAT)
@@ -71,9 +55,9 @@ public class KnowledgeDataframeLoader {
         .option(SparkOptions.Arango.PASSWORD, this.sparkProperties.getArango().getPassword())
         .option(SparkOptions.Arango.SSL_ENABLED, this.sparkProperties.getArango().isSslEnabled())
         .option(SparkOptions.Arango.TABLE, COLLECTION_PRODUCT)
-        .schema(productSchema())
+        .schema(Schemas.Product.SCHEMA)
         .load()
-        .withColumnRenamed("_key", "product_id")
-        .withColumnRenamed("name", "product_name");
+        .withColumnRenamed(Schemas.Arango._KEY.name(), PRODUCT_ID)
+        .withColumnRenamed(Schemas.Product.NAME.name(), PRODUCT_NAME);
   }
 }

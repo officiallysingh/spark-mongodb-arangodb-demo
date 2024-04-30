@@ -34,4 +34,18 @@ public class SparkOptions {
         public static final String SSL_ENABLED = "ssl.enabled";
         public static final String SSL_CERT_VALUE = "ssl.cert.value";
     }
+
+    public static final class Join {
+
+        public static final String INNER = "inner";
+        public static final String FULL = "full";
+        public static final String FULL_OUTER = "full_outer";
+        public static final String LEFT = "left";
+        public static final String LEFT_OUTER = "left_outer";
+        public static final String LEFT_SEMI = "left_semi";
+        public static final String LEFT_ANTI = "left_anti";
+        public static final String RIGHT = "right";
+        public static final String RIGHT_OUTER = "right_outer";
+        public static final String CROSS = "cross";
+    }
 }
