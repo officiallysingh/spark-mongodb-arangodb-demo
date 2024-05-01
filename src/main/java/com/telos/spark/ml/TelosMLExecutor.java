@@ -69,7 +69,8 @@ public class TelosMLExecutor {
     //    featuresInferenceJoined.show(50, false);
 
     // Then join the result with labelsDf
-    Dataset<Row> result =
+    //    Dataset<Row> result =
+    Dataset<Row> featuresInferenceLabelsJoined =
         featuresInferenceJoined
             .join(
                 labelsDf,
@@ -91,24 +92,25 @@ public class TelosMLExecutor {
     // Show the result or save it to a file or database
     //    result.show(1000, false);
 
-    result = result.join(retailCustomersDf, CUSTOMER_ID, LEFT);
+    Dataset<Row> featuresInferenceLabelCustomersJoined =
+        featuresInferenceLabelsJoined.join(retailCustomersDf, CUSTOMER_ID, LEFT);
     //    result.show(1000, false);
 
-    result =
-        result
+    Dataset<Row> result =
+        featuresInferenceLabelCustomersJoined
             .join(productsDf, "product_id", LEFT)
             .select(
-                result.col(CUSTOMER_ID),
-                result.col("customer_name"),
-                result.col(PRODUCT_ID),
+                featuresInferenceLabelCustomersJoined.col(CUSTOMER_ID),
+                featuresInferenceLabelCustomersJoined.col("customer_name"),
+                featuresInferenceLabelCustomersJoined.col(PRODUCT_ID),
                 productsDf.col("product_name"),
-                result.col(Schemas.Feature.FEATURE_ID.name()),
-                result.col(Schemas.Feature.FEATURE_VALUE.name()),
-                result.col(Schemas.Inference.INFERENCE_ID.name()),
-                result.col(Schemas.Inference.INFERENCE_VALUE.name()),
-                result.col(Schemas.Label.LABEL_ID.name()),
-                result.col(Schemas.Label.LABEL_VALUE.name()));
-    ;
+                featuresInferenceLabelCustomersJoined.col(Schemas.Feature.FEATURE_ID.name()),
+                featuresInferenceLabelCustomersJoined.col(Schemas.Feature.FEATURE_VALUE.name()),
+                featuresInferenceLabelCustomersJoined.col(Schemas.Inference.INFERENCE_ID.name()),
+                featuresInferenceLabelCustomersJoined.col(Schemas.Inference.INFERENCE_VALUE.name()),
+                featuresInferenceLabelCustomersJoined.col(Schemas.Label.LABEL_ID.name()),
+                featuresInferenceLabelCustomersJoined.col(Schemas.Label.LABEL_VALUE.name()));
+
     result.show(1000, false);
   }
 }
