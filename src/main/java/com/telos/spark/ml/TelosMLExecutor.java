@@ -1,7 +1,9 @@
 package com.telos.spark.ml;
 
 import static com.telos.spark.Schemas.Common.CUSTOMER_ID;
+import static com.telos.spark.Schemas.Common.CUSTOMER_NAME;
 import static com.telos.spark.Schemas.Common.PRODUCT_ID;
+import static com.telos.spark.Schemas.Common.PRODUCT_NAME;
 import static com.telos.spark.conf.SparkOptions.Join.LEFT;
 
 import com.telos.spark.Schemas;
@@ -69,7 +71,6 @@ public class TelosMLExecutor {
     //    featuresInferenceJoined.show(50, false);
 
     // Then join the result with labelsDf
-    //    Dataset<Row> result =
     Dataset<Row> featuresInferenceLabelsJoined =
         featuresInferenceJoined
             .join(
@@ -88,22 +89,22 @@ public class TelosMLExecutor {
                 featuresInferenceJoined.col(Schemas.Inference.INFERENCE_VALUE.name()),
                 labelsDf.col(Schemas.Label.LABEL_ID.name()),
                 labelsDf.col(Schemas.Label.LABEL_VALUE.name()));
+    //    featuresInferenceLabelsJoined.show(1000, false);
 
-    // Show the result or save it to a file or database
-    //    result.show(1000, false);
-
+    // Then join the result with retailCustomersDf
     Dataset<Row> featuresInferenceLabelCustomersJoined =
         featuresInferenceLabelsJoined.join(retailCustomersDf, CUSTOMER_ID, LEFT);
-    //    result.show(1000, false);
+    //    featuresInferenceLabelCustomersJoined.show(1000, false);
 
+    // Then join the result with productsDf
     Dataset<Row> result =
         featuresInferenceLabelCustomersJoined
-            .join(productsDf, "product_id", LEFT)
+            .join(productsDf, PRODUCT_ID, LEFT)
             .select(
                 featuresInferenceLabelCustomersJoined.col(CUSTOMER_ID),
-                featuresInferenceLabelCustomersJoined.col("customer_name"),
+                featuresInferenceLabelCustomersJoined.col(CUSTOMER_NAME),
                 featuresInferenceLabelCustomersJoined.col(PRODUCT_ID),
-                productsDf.col("product_name"),
+                productsDf.col(PRODUCT_NAME),
                 featuresInferenceLabelCustomersJoined.col(Schemas.Feature.FEATURE_ID.name()),
                 featuresInferenceLabelCustomersJoined.col(Schemas.Feature.FEATURE_VALUE.name()),
                 featuresInferenceLabelCustomersJoined.col(Schemas.Inference.INFERENCE_ID.name()),
