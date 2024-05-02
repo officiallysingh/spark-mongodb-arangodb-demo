@@ -9,7 +9,7 @@ import static org.apache.spark.sql.functions.*;
 
 import com.telos.spark.conf.SparkOptions;
 import com.telos.spark.data.KnowledgeDataframeLoader;
-import com.telos.spark.data.MongoDataframeLoader;
+import com.telos.spark.data.TransactionframeLoader;
 import java.util.Arrays;
 import java.util.Comparator;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +27,7 @@ public class TelosMLExecutor {
 
   private final KnowledgeDataframeLoader arangoDataframeLoader;
 
-  private final MongoDataframeLoader mongoDataframeLoader;
+  private final TransactionframeLoader mongoDataframeLoader;
 
   public void execute() {
     log.info("Loading Retail Customers data from ArangoDB...");

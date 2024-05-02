@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class MongoDataframeLoader {
+public class TransactionframeLoader {
 
   private final SparkSession sparkSession;
 
