@@ -5,14 +5,17 @@ import static com.telos.spark.Schemas.Common.CUSTOMER_NAME;
 import static com.telos.spark.Schemas.Common.PRODUCT_ID;
 import static com.telos.spark.Schemas.Common.PRODUCT_NAME;
 import static com.telos.spark.conf.SparkOptions.Join.LEFT;
+import static org.apache.spark.sql.functions.*;
 
-import com.telos.spark.Schemas;
 import com.telos.spark.data.KnowledgeDataframeLoader;
 import com.telos.spark.data.MongoDataframeLoader;
+import java.util.Arrays;
+import java.util.Comparator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
+import org.apache.spark.sql.functions;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -37,81 +40,92 @@ public class TelosMLExecutor {
 
     log.info("Loading Features data from MongoDB...");
     Dataset<Row> featuresDf = this.mongoDataframeLoader.featuresDataframe();
+    featuresDf =
+        featuresDf
+            .groupBy(CUSTOMER_ID, PRODUCT_ID)
+            .pivot(concat(lit("feature_"), featuresDf.col("feature_id")))
+            .agg(functions.first("feature_value"));
     featuresDf.printSchema();
     featuresDf.show(5, false);
 
+    Dataset<Row> customerFeaturesDf = retailCustomersDf.join(featuresDf, CUSTOMER_ID, LEFT);
+    customerFeaturesDf.show(10, false);
+    Dataset<Row> customerProductFeaturesDf = customerFeaturesDf.join(productsDf, PRODUCT_ID, LEFT);
+    customerProductFeaturesDf.show(10, false);
+
     log.info("Loading Inferences data from MongoDB...");
     Dataset<Row> inferencesDf = this.mongoDataframeLoader.inferencesDataframe();
+    inferencesDf =
+        inferencesDf
+            .groupBy(CUSTOMER_ID, PRODUCT_ID)
+            .pivot(concat(lit("inference_"), inferencesDf.col("inference_id")))
+            .agg(functions.first("inference_value"));
     inferencesDf.printSchema();
     inferencesDf.show(5, false);
 
     log.info("Loading Labels data from MongoDB...");
     Dataset<Row> labelsDf = this.mongoDataframeLoader.labelsDataframe();
+    labelsDf =
+        labelsDf
+            .groupBy(CUSTOMER_ID, PRODUCT_ID)
+            .pivot(concat(lit("label_"), labelsDf.col("label_id")))
+            .agg(functions.first("label_value"));
     labelsDf.printSchema();
     labelsDf.show(5, false);
 
     // ----------- Joins -----------
-    // First join featuresDf with inferencesDf
-    Dataset<Row> featuresInferenceJoined =
-        featuresDf
+    Dataset<Row> customerProductFeatureInferenceDf =
+        customerProductFeaturesDf
             .join(
                 inferencesDf,
-                featuresDf
+                customerProductFeaturesDf
                     .col(CUSTOMER_ID)
                     .equalTo(inferencesDf.col(CUSTOMER_ID))
-                    .and(featuresDf.col(PRODUCT_ID).equalTo(inferencesDf.col(PRODUCT_ID))),
+                    .and(
+                        customerProductFeaturesDf
+                            .col(PRODUCT_ID)
+                            .equalTo(inferencesDf.col(PRODUCT_ID))),
                 LEFT)
-            .select(
-                featuresDf.col(CUSTOMER_ID),
-                featuresDf.col(PRODUCT_ID),
-                featuresDf.col(Schemas.Feature.FEATURE_ID.name()),
-                featuresDf.col(Schemas.Feature.FEATURE_VALUE.name()),
-                inferencesDf.col(Schemas.Inference.INFERENCE_ID.name()),
-                inferencesDf.col(Schemas.Inference.INFERENCE_VALUE.name()));
-    //    featuresInferenceJoined.show(50, false);
+            .drop(inferencesDf.col(CUSTOMER_ID), inferencesDf.col(PRODUCT_ID));
+    customerProductFeatureInferenceDf.show(50, false);
 
-    // Then join the result with labelsDf
-    Dataset<Row> featuresInferenceLabelsJoined =
-        featuresInferenceJoined
+    Dataset<Row> resultDf =
+        customerProductFeatureInferenceDf
             .join(
                 labelsDf,
-                featuresInferenceJoined
+                customerProductFeatureInferenceDf
                     .col(CUSTOMER_ID)
                     .equalTo(labelsDf.col(CUSTOMER_ID))
-                    .and(featuresInferenceJoined.col(PRODUCT_ID).equalTo(labelsDf.col(PRODUCT_ID))),
+                    .and(
+                        customerProductFeatureInferenceDf
+                            .col(PRODUCT_ID)
+                            .equalTo(labelsDf.col(PRODUCT_ID))),
                 LEFT)
-            .select(
-                featuresInferenceJoined.col(CUSTOMER_ID),
-                featuresInferenceJoined.col(PRODUCT_ID),
-                featuresInferenceJoined.col(Schemas.Feature.FEATURE_ID.name()),
-                featuresInferenceJoined.col(Schemas.Feature.FEATURE_VALUE.name()),
-                featuresInferenceJoined.col(Schemas.Inference.INFERENCE_ID.name()),
-                featuresInferenceJoined.col(Schemas.Inference.INFERENCE_VALUE.name()),
-                labelsDf.col(Schemas.Label.LABEL_ID.name()),
-                labelsDf.col(Schemas.Label.LABEL_VALUE.name()));
-    //    featuresInferenceLabelsJoined.show(1000, false);
+            .drop(labelsDf.col(CUSTOMER_ID), labelsDf.col(PRODUCT_ID));
 
-    // Then join the result with retailCustomersDf
-    Dataset<Row> featuresInferenceLabelCustomersJoined =
-        featuresInferenceLabelsJoined.join(retailCustomersDf, CUSTOMER_ID, LEFT);
-    //    featuresInferenceLabelCustomersJoined.show(1000, false);
+    final String[] columns = resultDf.columns();
 
-    // Then join the result with productsDf
-    Dataset<Row> result =
-        featuresInferenceLabelCustomersJoined
-            .join(productsDf, PRODUCT_ID, LEFT)
-            .select(
-                featuresInferenceLabelCustomersJoined.col(CUSTOMER_ID),
-                featuresInferenceLabelCustomersJoined.col(CUSTOMER_NAME),
-                featuresInferenceLabelCustomersJoined.col(PRODUCT_ID),
-                productsDf.col(PRODUCT_NAME),
-                featuresInferenceLabelCustomersJoined.col(Schemas.Feature.FEATURE_ID.name()),
-                featuresInferenceLabelCustomersJoined.col(Schemas.Feature.FEATURE_VALUE.name()),
-                featuresInferenceLabelCustomersJoined.col(Schemas.Inference.INFERENCE_ID.name()),
-                featuresInferenceLabelCustomersJoined.col(Schemas.Inference.INFERENCE_VALUE.name()),
-                featuresInferenceLabelCustomersJoined.col(Schemas.Label.LABEL_ID.name()),
-                featuresInferenceLabelCustomersJoined.col(Schemas.Label.LABEL_VALUE.name()));
+    final Comparator<String> COLUMN_NAME_COMPARATOR =
+        Comparator.comparingInt(
+            col -> {
+              switch (col) {
+                case CUSTOMER_ID:
+                  return 1;
+                case CUSTOMER_NAME:
+                  return 2;
+                case PRODUCT_ID:
+                  return 3;
+                case PRODUCT_NAME:
+                  return 4;
+                default:
+                  return 5;
+              }
+            });
 
-    result.show(1000, false);
+    final String[] sortedColumns =
+        Arrays.stream(columns).sorted(COLUMN_NAME_COMPARATOR).toArray(String[]::new);
+
+    resultDf = resultDf.selectExpr(sortedColumns);
+    resultDf.show(50, false);
   }
 }
