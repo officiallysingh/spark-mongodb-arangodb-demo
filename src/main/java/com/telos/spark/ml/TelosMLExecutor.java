@@ -7,6 +7,7 @@ import static com.telos.spark.Schemas.Common.PRODUCT_NAME;
 import static com.telos.spark.conf.SparkOptions.Join.LEFT;
 import static org.apache.spark.sql.functions.*;
 
+import com.telos.spark.conf.SparkOptions;
 import com.telos.spark.data.KnowledgeDataframeLoader;
 import com.telos.spark.data.MongoDataframeLoader;
 import java.util.Arrays;
@@ -134,7 +135,7 @@ public class TelosMLExecutor {
         .write()
         .mode(SaveMode.Overwrite) // Specify the save mode: overwrite, append, ignore, error,
         // errorifexists
-        .option("header", "true") // Include header
+        .option(SparkOptions.Common.HEADER, true) // Include header
         .parquet("spark-mongodb-arangodb-demo/export/output.parquet");
   }
 }

@@ -9,6 +9,26 @@ public class SparkOptions {
     public static final String INSTANCES = "mongodb";
   }
 
+  public static final class Common {
+
+    public static final String HEADER = "header";
+  }
+
+  public static final class Parquet {
+
+    public static final String FORMAT = "parquet";
+    public static final String COMPRESSION = "compression";
+
+    public static final String COMPRESSION_NONE = "none";
+    public static final String COMPRESSION_UNCOMPRESSED = "uncompressed";
+    public static final String COMPRESSION_SNAPPY = "snappy";
+    public static final String COMPRESSION_GZIP = "gzip";
+    public static final String COMPRESSION_LZO = "lzo";
+    public static final String COMPRESSION_BROTLI = "brotli";
+    public static final String COMPRESSION_LZ4 = "lz4";
+    public static final String COMPRESSION_ZSTD = "zstd";
+  }
+
   public static final class Mongo {
 
     public static final String FORMAT = "mongodb";
