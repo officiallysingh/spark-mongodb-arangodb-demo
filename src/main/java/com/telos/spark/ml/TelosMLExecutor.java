@@ -129,10 +129,12 @@ public class TelosMLExecutor {
     resultDf = resultDf.selectExpr(sortedColumns);
     resultDf.show(50, false);
 
-    // Writing the DataFrame to a CSV file
-    resultDf.write()
-            .mode(SaveMode.Overwrite)  // Specify the save mode: overwrite, append, ignore, error, errorifexists
-            .option("header", "true")  // Include header
-            .parquet("spark-mongodb-arangodb-demo/export/output.parquet");
+    // Writing the DataFrame to a Parquet file
+    resultDf
+        .write()
+        .mode(SaveMode.Overwrite) // Specify the save mode: overwrite, append, ignore, error,
+        // errorifexists
+        .option("header", "true") // Include header
+        .parquet("spark-mongodb-arangodb-demo/export/output.parquet");
   }
 }
