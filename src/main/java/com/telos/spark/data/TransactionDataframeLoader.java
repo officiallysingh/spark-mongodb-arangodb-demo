@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class TransactionframeLoader {
+public class TransactionDataframeLoader {
 
   private final SparkSession sparkSession;
 

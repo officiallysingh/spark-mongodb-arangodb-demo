@@ -9,11 +9,12 @@ import static org.apache.spark.sql.functions.*;
 
 import com.telos.spark.conf.SparkOptions;
 import com.telos.spark.data.KnowledgeDataframeLoader;
-import com.telos.spark.data.TransactionframeLoader;
+import com.telos.spark.data.TransactionDataframeLoader;
 import java.util.Arrays;
-import java.util.Comparator;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SaveMode;
@@ -27,18 +28,22 @@ public class TelosMLExecutor {
 
   private final KnowledgeDataframeLoader arangoDataframeLoader;
 
-  private final TransactionframeLoader mongoDataframeLoader;
+  private final TransactionDataframeLoader mongoDataframeLoader;
 
   public void execute() {
     log.info("Loading Retail Customers data from ArangoDB...");
     Dataset<Row> retailCustomersDf = this.arangoDataframeLoader.retailCustomersDataframe();
-    retailCustomersDf.printSchema();
-    retailCustomersDf.show(5, false);
+    //    retailCustomersDf.printSchema();
+    //    retailCustomersDf.show(5, false);
 
     log.info("Loading Products data from ArangoDB...");
     Dataset<Row> productsDf = this.arangoDataframeLoader.productsDataframe();
-    productsDf.printSchema();
-    productsDf.show(5, false);
+    //    productsDf.printSchema();
+    //    productsDf.show(5, false);
+
+    Dataset<Row> customerProductsDf = retailCustomersDf.crossJoin(productsDf);
+    //    customerProductsDf.printSchema();
+    //    customerProductsDf.show(10000, false);
 
     log.info("Loading Features data from MongoDB...");
     Dataset<Row> featuresDf = this.mongoDataframeLoader.featuresDataframe();
@@ -47,13 +52,8 @@ public class TelosMLExecutor {
             .groupBy(CUSTOMER_ID, PRODUCT_ID)
             .pivot(concat(lit("feature_"), featuresDf.col("feature_id")))
             .agg(functions.first("feature_value"));
-    featuresDf.printSchema();
-    featuresDf.show(5, false);
-
-    Dataset<Row> customerFeaturesDf = retailCustomersDf.join(featuresDf, CUSTOMER_ID, LEFT);
-    customerFeaturesDf.show(10, false);
-    Dataset<Row> customerProductFeaturesDf = customerFeaturesDf.join(productsDf, PRODUCT_ID, LEFT);
-    customerProductFeaturesDf.show(10, false);
+    //    featuresDf.printSchema();
+    //    featuresDf.show(5000, false);
 
     log.info("Loading Inferences data from MongoDB...");
     Dataset<Row> inferencesDf = this.mongoDataframeLoader.inferencesDataframe();
@@ -62,8 +62,8 @@ public class TelosMLExecutor {
             .groupBy(CUSTOMER_ID, PRODUCT_ID)
             .pivot(concat(lit("inference_"), inferencesDf.col("inference_id")))
             .agg(functions.first("inference_value"));
-    inferencesDf.printSchema();
-    inferencesDf.show(5, false);
+    //    inferencesDf.printSchema();
+    //    inferencesDf.show(5, false);
 
     log.info("Loading Labels data from MongoDB...");
     Dataset<Row> labelsDf = this.mongoDataframeLoader.labelsDataframe();
@@ -72,11 +72,24 @@ public class TelosMLExecutor {
             .groupBy(CUSTOMER_ID, PRODUCT_ID)
             .pivot(concat(lit("label_"), labelsDf.col("label_id")))
             .agg(functions.first("label_value"));
-    labelsDf.printSchema();
-    labelsDf.show(5, false);
+    //    labelsDf.printSchema();
+    //    labelsDf.show(5, false);
+
+    Dataset<Row> customerProductFeaturesDf =
+        customerProductsDf
+            .join(
+                featuresDf,
+                customerProductsDf
+                    .col(CUSTOMER_ID)
+                    .equalTo(featuresDf.col(CUSTOMER_ID))
+                    .and(customerProductsDf.col(PRODUCT_ID).equalTo(featuresDf.col(PRODUCT_ID))),
+                LEFT)
+            .drop(featuresDf.col(CUSTOMER_ID), featuresDf.col(PRODUCT_ID));
+    //    labelsDf.printSchema();
+    //    customerProductFeaturesDf.show(5000, false);
 
     // ----------- Joins -----------
-    Dataset<Row> customerProductFeatureInferenceDf =
+    Dataset<Row> customerProductFeatureInferencesDf =
         customerProductFeaturesDf
             .join(
                 inferencesDf,
@@ -89,46 +102,36 @@ public class TelosMLExecutor {
                             .equalTo(inferencesDf.col(PRODUCT_ID))),
                 LEFT)
             .drop(inferencesDf.col(CUSTOMER_ID), inferencesDf.col(PRODUCT_ID));
-    customerProductFeatureInferenceDf.show(50, false);
+    customerProductFeatureInferencesDf.show(5000, false);
 
     Dataset<Row> resultDf =
-        customerProductFeatureInferenceDf
+        customerProductFeatureInferencesDf
             .join(
                 labelsDf,
-                customerProductFeatureInferenceDf
+                customerProductFeatureInferencesDf
                     .col(CUSTOMER_ID)
                     .equalTo(labelsDf.col(CUSTOMER_ID))
                     .and(
-                        customerProductFeatureInferenceDf
+                        customerProductFeatureInferencesDf
                             .col(PRODUCT_ID)
                             .equalTo(labelsDf.col(PRODUCT_ID))),
                 LEFT)
             .drop(labelsDf.col(CUSTOMER_ID), labelsDf.col(PRODUCT_ID));
+//    resultDf.show(5000, false);
 
+    final String[] customerProductColumns = {CUSTOMER_ID, CUSTOMER_NAME, PRODUCT_ID, PRODUCT_NAME};
     final String[] columns = resultDf.columns();
 
-    final Comparator<String> COLUMN_NAME_COMPARATOR =
-        Comparator.comparingInt(
-            col -> {
-              switch (col) {
-                case CUSTOMER_ID:
-                  return 1;
-                case CUSTOMER_NAME:
-                  return 2;
-                case PRODUCT_ID:
-                  return 3;
-                case PRODUCT_NAME:
-                  return 4;
-                default:
-                  return 5;
-              }
-            });
+    String filterRowsWithAllColNulls =
+        Arrays.stream(columns)
+            .filter(colName -> !StringUtils.equalsAnyIgnoreCase(colName, customerProductColumns))
+            .map(columnName -> col(columnName).isNotNull().toString())
+            .collect(Collectors.joining(" OR "));
 
-    final String[] sortedColumns =
-        Arrays.stream(columns).sorted(COLUMN_NAME_COMPARATOR).toArray(String[]::new);
+//    System.out.println("????? filterRowsWithAllColNulls -->" + filterRowsWithAllColNulls);
 
-    resultDf = resultDf.selectExpr(sortedColumns);
-    resultDf.show(50, false);
+    resultDf = resultDf.filter(filterRowsWithAllColNulls);
+    resultDf.show(5000, false);
 
     // Writing the DataFrame to a Parquet file
     resultDf
