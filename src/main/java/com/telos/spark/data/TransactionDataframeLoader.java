@@ -39,7 +39,6 @@ public class TransactionDataframeLoader {
   }
 
   //  ------------- Inferences -------------
-
   public Dataset<Row> inferencesDataframe() {
     return this.sparkSession
         .read()

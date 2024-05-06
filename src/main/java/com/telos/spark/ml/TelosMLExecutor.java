@@ -75,6 +75,7 @@ public class TelosMLExecutor {
     //    labelsDf.printSchema();
     //    labelsDf.show(5, false);
 
+    // ----------- Joins -----------
     Dataset<Row> customerProductFeaturesDf =
         customerProductsDf
             .join(
@@ -88,7 +89,6 @@ public class TelosMLExecutor {
     //    labelsDf.printSchema();
     //    customerProductFeaturesDf.show(5000, false);
 
-    // ----------- Joins -----------
     Dataset<Row> customerProductFeatureInferencesDf =
         customerProductFeaturesDf
             .join(
