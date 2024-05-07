@@ -33,17 +33,20 @@ public class TelosMLExecutor {
   public void execute() {
     log.info("Loading Retail Customers data from ArangoDB...");
     Dataset<Row> retailCustomersDf = this.arangoDataframeLoader.retailCustomersDataframe();
+    System.out.println("retailCustomersDf Count: " + retailCustomersDf.count());
     //    retailCustomersDf.printSchema();
     //    retailCustomersDf.show(5, false);
 
     log.info("Loading Products data from ArangoDB...");
     Dataset<Row> productsDf = this.arangoDataframeLoader.productsDataframe();
+    System.out.println("productsDf Count: " + productsDf.count());
     //    productsDf.printSchema();
     //    productsDf.show(5, false);
 
     Dataset<Row> customerProductsDf = retailCustomersDf.crossJoin(productsDf);
-    //    customerProductsDf.printSchema();
-    //    customerProductsDf.show(10000, false);
+        customerProductsDf.printSchema();
+        customerProductsDf.show(10000, false);
+    System.out.println("customerProductsDf Count: " + customerProductsDf.count());
 
     log.info("Loading Features data from MongoDB...");
     Dataset<Row> featuresDf = this.mongoDataframeLoader.featuresDataframe();
@@ -52,9 +55,10 @@ public class TelosMLExecutor {
             .groupBy(CUSTOMER_ID, PRODUCT_ID)
             .pivot(concat(lit("feature_"), featuresDf.col("feature_id")))
             .agg(functions.first("feature_value"));
-    //    featuresDf.printSchema();
-    //    featuresDf.show(5000, false);
-
+    System.out.println("featuresDf Count: " + featuresDf.count());
+//    //    featuresDf.printSchema();
+//    //    featuresDf.show(5000, false);
+//
     log.info("Loading Inferences data from MongoDB...");
     Dataset<Row> inferencesDf = this.mongoDataframeLoader.inferencesDataframe();
     inferencesDf =
@@ -62,9 +66,10 @@ public class TelosMLExecutor {
             .groupBy(CUSTOMER_ID, PRODUCT_ID)
             .pivot(concat(lit("inference_"), inferencesDf.col("inference_id")))
             .agg(functions.first("inference_value"));
+    System.out.println("inferencesDf Count: " + inferencesDf.count());
     //    inferencesDf.printSchema();
     //    inferencesDf.show(5, false);
-
+//
     log.info("Loading Labels data from MongoDB...");
     Dataset<Row> labelsDf = this.mongoDataframeLoader.labelsDataframe();
     labelsDf =
@@ -72,6 +77,7 @@ public class TelosMLExecutor {
             .groupBy(CUSTOMER_ID, PRODUCT_ID)
             .pivot(concat(lit("label_"), labelsDf.col("label_id")))
             .agg(functions.first("label_value"));
+    System.out.println("labelsDf Count: " + labelsDf.count());
     //    labelsDf.printSchema();
     //    labelsDf.show(5, false);
 
@@ -86,6 +92,7 @@ public class TelosMLExecutor {
                     .and(customerProductsDf.col(PRODUCT_ID).equalTo(featuresDf.col(PRODUCT_ID))),
                 LEFT)
             .drop(featuresDf.col(CUSTOMER_ID), featuresDf.col(PRODUCT_ID));
+    System.out.println("customerProductFeaturesDf Count: " + customerProductFeaturesDf.count());
     //    labelsDf.printSchema();
     //    customerProductFeaturesDf.show(5000, false);
 
@@ -102,7 +109,8 @@ public class TelosMLExecutor {
                             .equalTo(inferencesDf.col(PRODUCT_ID))),
                 LEFT)
             .drop(inferencesDf.col(CUSTOMER_ID), inferencesDf.col(PRODUCT_ID));
-    customerProductFeatureInferencesDf.show(5000, false);
+    System.out.println("customerProductFeatureInferencesDf Count: " + customerProductFeatureInferencesDf.count());
+//    customerProductFeatureInferencesDf.show(5000, false);
 
     Dataset<Row> resultDf =
         customerProductFeatureInferencesDf
@@ -117,8 +125,9 @@ public class TelosMLExecutor {
                             .equalTo(labelsDf.col(PRODUCT_ID))),
                 LEFT)
             .drop(labelsDf.col(CUSTOMER_ID), labelsDf.col(PRODUCT_ID));
+    System.out.println("resultDf Count: " + resultDf.count());
 //    resultDf.show(5000, false);
-
+//
     final String[] customerProductColumns = {CUSTOMER_ID, CUSTOMER_NAME, PRODUCT_ID, PRODUCT_NAME};
     final String[] columns = resultDf.columns();
 
@@ -128,11 +137,12 @@ public class TelosMLExecutor {
             .map(columnName -> col(columnName).isNotNull().toString())
             .collect(Collectors.joining(" OR "));
 
-//    System.out.println("????? filterRowsWithAllColNulls -->" + filterRowsWithAllColNulls);
+    System.out.println("????? filterRowsWithAllColNulls -->" + filterRowsWithAllColNulls);
 
     resultDf = resultDf.filter(filterRowsWithAllColNulls);
-    resultDf.show(5000, false);
-
+    System.out.println("Sanitized resultDf Count: " + resultDf.count());
+//    resultDf.show(5000, false);
+//
     // Writing the DataFrame to a Parquet file
     resultDf
         .write()
