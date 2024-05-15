@@ -1,21 +1,15 @@
-# ArangoDB Spark Datasource Demo
+# ArangoDB & MongoDB Spark Datasource Demo
 
-This demo is composed of 3 parts:
+Run [**`TelosMLTask`**](src/main/java/com/telos/spark/TelosMLTask.java) as Spring boot application.
 
-- `WriteDemo`: reads the input json files as Spark Dataframes, applies conversions to map the data to Spark data types
-  and writes the records into ArangoDB collections
-- `ReadDemo`: reads the ArangoDB collections created above as Spark Dataframes, specifying columns selection and records
-  filters predicates or custom AQL queries
-- `ReadWriteDemo`: reads the ArangoDB collections created above as Spark Dataframes, applies projections and filtering,
-  writes to a new ArangoDB collection
-
-There are demos available written in Scala & Python (using PySpark) as outlined below.
+> [!IMPORTANT]
+> Set VM argument `--add-exports java.base/sun.nio.ch=ALL-UNNAMED`
 
 ## Requirements
 
 This demo requires:
 
-- JDK 11
+- JDK 17
 - `maven`
 - `docker`
 
