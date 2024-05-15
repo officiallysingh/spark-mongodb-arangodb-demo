@@ -7,6 +7,9 @@ import static com.telos.spark.Schemas.Common.PRODUCT_NAME;
 import static com.telos.spark.conf.SparkOptions.Join.LEFT;
 import static org.apache.spark.sql.functions.*;
 
+//import com.telos.cortex.model.design.ModelDesignSchema;
+//import com.telos.schema.SchemaKeyDictionary;
+//import com.telos.sdk.commons.SchemaCache;
 import com.telos.spark.conf.SparkOptions;
 import com.telos.spark.data.KnowledgeDataframeLoader;
 import com.telos.spark.data.TransactionDataframeLoader;
@@ -22,7 +25,7 @@ import org.apache.spark.sql.functions;
 import org.springframework.stereotype.Component;
 
 @Component
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 @Slf4j
 public class TelosMLExecutor {
 
@@ -30,7 +33,25 @@ public class TelosMLExecutor {
 
   private final TransactionDataframeLoader mongoDataframeLoader;
 
+//  private final SchemaKeyDictionary schemaKeyDictionary;
+
+  public TelosMLExecutor(final KnowledgeDataframeLoader arangoDataframeLoader,
+                         final TransactionDataframeLoader mongoDataframeLoader
+//          ,
+//                         final SchemaCache schemaCache
+  ) {
+    this.arangoDataframeLoader = arangoDataframeLoader;
+    this.mongoDataframeLoader = mongoDataframeLoader;
+//    this.schemaKeyDictionary = schemaCache.initModelTrainingSchema();
+  }
+
   public void execute() {
+//    ModelDesignSchema modelDesignSchema = this.schemaKeyDictionary.getModelDesignMap().get("/model-design/retail/recommendation");
+//
+//    modelDesignSchema.getCriteria().getFetchMap().forEach((k, v) -> {
+//      System.out.println("Key: " + k + " Value: " + v);
+//    });
+
     log.info("Loading Retail Customers data from ArangoDB...");
     Dataset<Row> retailCustomersDf = this.arangoDataframeLoader.retailCustomersDataframe();
     System.out.println("retailCustomersDf Count: " + retailCustomersDf.count());
@@ -44,8 +65,8 @@ public class TelosMLExecutor {
     //    productsDf.show(5, false);
 
     Dataset<Row> customerProductsDf = retailCustomersDf.crossJoin(productsDf);
-        customerProductsDf.printSchema();
-        customerProductsDf.show(10000, false);
+    customerProductsDf.printSchema();
+    customerProductsDf.show(10000, false);
     System.out.println("customerProductsDf Count: " + customerProductsDf.count());
 
     log.info("Loading Features data from MongoDB...");
@@ -56,9 +77,9 @@ public class TelosMLExecutor {
             .pivot(concat(lit("feature_"), featuresDf.col("feature_id")))
             .agg(functions.first("feature_value"));
     System.out.println("featuresDf Count: " + featuresDf.count());
-//    //    featuresDf.printSchema();
-//    //    featuresDf.show(5000, false);
-//
+    //    //    featuresDf.printSchema();
+    //    //    featuresDf.show(5000, false);
+    //
     log.info("Loading Inferences data from MongoDB...");
     Dataset<Row> inferencesDf = this.mongoDataframeLoader.inferencesDataframe();
     inferencesDf =
@@ -69,7 +90,7 @@ public class TelosMLExecutor {
     System.out.println("inferencesDf Count: " + inferencesDf.count());
     //    inferencesDf.printSchema();
     //    inferencesDf.show(5, false);
-//
+    //
     log.info("Loading Labels data from MongoDB...");
     Dataset<Row> labelsDf = this.mongoDataframeLoader.labelsDataframe();
     labelsDf =
@@ -109,8 +130,9 @@ public class TelosMLExecutor {
                             .equalTo(inferencesDf.col(PRODUCT_ID))),
                 LEFT)
             .drop(inferencesDf.col(CUSTOMER_ID), inferencesDf.col(PRODUCT_ID));
-    System.out.println("customerProductFeatureInferencesDf Count: " + customerProductFeatureInferencesDf.count());
-//    customerProductFeatureInferencesDf.show(5000, false);
+    System.out.println(
+        "customerProductFeatureInferencesDf Count: " + customerProductFeatureInferencesDf.count());
+    //    customerProductFeatureInferencesDf.show(5000, false);
 
     Dataset<Row> resultDf =
         customerProductFeatureInferencesDf
@@ -126,8 +148,8 @@ public class TelosMLExecutor {
                 LEFT)
             .drop(labelsDf.col(CUSTOMER_ID), labelsDf.col(PRODUCT_ID));
     System.out.println("resultDf Count: " + resultDf.count());
-//    resultDf.show(5000, false);
-//
+    //    resultDf.show(5000, false);
+    //
     final String[] customerProductColumns = {CUSTOMER_ID, CUSTOMER_NAME, PRODUCT_ID, PRODUCT_NAME};
     final String[] columns = resultDf.columns();
 
@@ -141,8 +163,8 @@ public class TelosMLExecutor {
 
     resultDf = resultDf.filter(filterRowsWithAllColNulls);
     System.out.println("Sanitized resultDf Count: " + resultDf.count());
-//    resultDf.show(5000, false);
-//
+    //    resultDf.show(5000, false);
+    //
     // Writing the DataFrame to a Parquet file
     resultDf
         .write()

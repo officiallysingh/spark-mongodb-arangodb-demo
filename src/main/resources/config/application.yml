@@ -21,6 +21,8 @@ spring:
 
   main:
     log-startup-info: true
+  redis:
+    uri: ${REDIS_URL:redis://localhost:6379}
 
 #------------------------- Spark MongoDB configuration -------------------------
 spark:
@@ -51,7 +53,8 @@ logging:
   level:
     ROOT: info
     '[org.mongodb.driver]': warn
-#        '[org.springframework.data.mongodb.core.MongoTemplate]': debug
+
+    web: debug
 debug: false
 
 # ===================================================================

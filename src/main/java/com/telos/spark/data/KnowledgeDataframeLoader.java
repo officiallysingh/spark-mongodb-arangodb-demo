@@ -24,7 +24,7 @@ public class KnowledgeDataframeLoader {
 
   private static final String COLLECTION_RETAIL_CUSTOMER = "retail_customer";
 
-  private static final String COLLECTION_PRODUCT = "product";
+  private static final String COLLECTION_PRODUCT = "retail_product";
 
   //  ------------- Retail Customers -------------
   public Dataset<Row> retailCustomersDataframe() {
