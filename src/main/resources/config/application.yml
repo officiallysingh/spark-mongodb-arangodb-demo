@@ -24,7 +24,21 @@ spring:
   redis:
     uri: ${REDIS_URL:localhost:6379}
 
-#------------------------- Spark MongoDB configuration -------------------------
+# Logging configuration
+logging:
+  level:
+    ROOT: info
+    '[org.mongodb.driver]': warn
+
+    web: debug
+debug: false
+
+# ===================================================================
+# Application specific properties
+# Add your own application properties here
+# ===================================================================
+
+#------------------------- Spark configurations -------------------------
 spark:
   app-name: ${spring.application.name}
   master: local[*]
@@ -48,16 +62,5 @@ spark:
     password: ${ARANGODB_PASSWORD:admin}
     ssl-enabled: false
     ssl-cert-value: ""
-
-logging:
-  level:
-    ROOT: info
-    '[org.mongodb.driver]': warn
-
-    web: debug
-debug: false
-
-# ===================================================================
-# Application specific properties
-# Add your own application properties here
-# ===================================================================
+  model-schema-key: ${MODEL_SCHEMA_KEY:/model-design/retail/recommendation}
+  model-key: ${MODEL_KEY:customer_product.csv}

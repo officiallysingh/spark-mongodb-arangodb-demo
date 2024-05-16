@@ -9,7 +9,9 @@ public class SparkOptions {
 
   public static final class Common {
 
-    public static final String HEADER = "header";
+    public static final String HEADER = "header"; // inferSchema",
+
+    public static final String INFER_SCHEMA = "inferSchema";
   }
 
   public static final class Parquet {

@@ -27,6 +27,10 @@ public class SparkProperties {
 
   @NotNull private Arango arango = new Arango();
 
+  @NotEmpty private String modelSchemaKey;
+
+  @NotEmpty private String modelKey;
+
   @Getter
   @Setter
   @NoArgsConstructor

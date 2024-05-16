@@ -20,6 +20,10 @@
         <spring-cloud.version>2023.0.1</spring-cloud.version>
         <jakarta-servlet.version>4.0.3</jakarta-servlet.version>
         <jersey.version>2.36</jersey.version>
+        <commons-lang3.version>3.14.0</commons-lang3.version>
+        <commons-collections4.version>4.4</commons-collections4.version>
+        <commons-text.version>1.12.0</commons-text.version>
+        <guava.version>33.2.0-jre</guava.version>
 
         <scala.version>2.13.8</scala.version>
         <scala.compat.version>2.13</scala.compat.version>
@@ -150,6 +154,26 @@
 
         <!-- Misc dependencies -->
         <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>${commons-lang3.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-collections4</artifactId>
+            <version>${commons-collections4.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-text</artifactId>
+            <version>${commons-text.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>${guava.version}</version>
+        </dependency>
+        <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <scope>provided</scope>
@@ -171,9 +195,9 @@
                 <groupId>com.spotify.fmt</groupId>
                 <artifactId>fmt-maven-plugin</artifactId>
                 <version>${fmt-maven-plugin.version}</version>
-                <configuration>
-                    <skip>true</skip>
-                </configuration>
+<!--                <configuration>-->
+<!--                    <skip>true</skip>-->
+<!--                </configuration>-->
                 <executions>
                     <execution>
                         <goals>

@@ -14,4 +14,24 @@ debug: false
 # Add your own application properties here
 # ===================================================================
 
-        
+#------------------------- Spark configurations -------------------------
+spark:
+  master: local[*]
+  executor:
+    instances: 3
+  mongo:
+    url: ${MONGODB_URL:mongodb://localhost:27017}
+    feature:
+      database: ${FEATURES_DATABASE:feature-repo}
+      collection: ${FEATURES_COLLECTION:customer_product}
+    inference:
+      database: ${INFERENCE_DATABASE:inference-repo}
+      collection: ${INFERENCE_COLLECTION:customer_product}
+    label:
+      database: ${LABEL_DATABASE:label-repo}
+      collection: ${LABEL_COLLECTION:customer_product}
+  arango:
+    endpoints: ${ARANGODB_URL:10.167.165.22:8529}
+    database: ${ARANGODB_DATABASE:devdb}
+    username: ${ARANGODB_PASSWORD:root}
+    password: ${ARANGODB_PASSWORD:}
