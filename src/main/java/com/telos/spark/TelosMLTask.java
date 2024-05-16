@@ -11,7 +11,7 @@ import org.springframework.cloud.task.configuration.EnableTask;
 import org.springframework.context.annotation.Bean;
 
 @EnableTask
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = {"com.telos.sdk", "com.telos.spark"})
 @Slf4j
 public class TelosMLTask {
 

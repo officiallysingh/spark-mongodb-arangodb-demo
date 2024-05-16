@@ -10,6 +10,7 @@ import static org.apache.spark.sql.functions.*;
 import com.telos.cortex.model.design.ModelDesignSchema;
 import com.telos.schema.SchemaKeyDictionary;
 import com.telos.sdk.commons.SchemaCache;
+import com.telos.sdk.schemacache.getter.inmem.SchemaCacheImpl;
 import com.telos.spark.conf.SparkOptions;
 import com.telos.spark.data.KnowledgeDataframeLoader;
 import com.telos.spark.data.TransactionDataframeLoader;
@@ -44,6 +45,7 @@ public class TelosMLExecutor {
     }
 
     public void execute() {
+//        SchemaCache schemaCache = new SchemaCacheImpl();
         ModelDesignSchema modelDesignSchema = this.schemaKeyDictionary.getModelDesignMap().get("/model-design/retail/recommendation");
 
         modelDesignSchema.getCriteria().getFetchMap().forEach((k, v) -> {

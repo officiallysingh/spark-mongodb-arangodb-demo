@@ -22,7 +22,7 @@ spring:
   main:
     log-startup-info: true
   redis:
-    uri: ${REDIS_URL:redis://localhost:6379}
+    uri: ${REDIS_URL:localhost:6379}
 
 #------------------------- Spark MongoDB configuration -------------------------
 spark:
