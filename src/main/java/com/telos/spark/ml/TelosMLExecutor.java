@@ -8,6 +8,9 @@ import static com.telos.spark.conf.SparkOptions.Join.LEFT;
 import static org.apache.spark.sql.functions.*;
 
 import com.telos.cortex.model.design.ModelDesignSchema;
+import com.telos.repository.fetch.DatabaseQuery;
+import com.telos.repository.fetch.ModelDesignFetchRequest;
+import com.telos.repository.fetch.ModelFetchCondition;
 import com.telos.schema.SchemaKeyDictionary;
 import com.telos.sdk.commons.SchemaCache;
 import com.telos.sdk.schemacache.getter.inmem.SchemaCacheImpl;
@@ -47,10 +50,16 @@ public class TelosMLExecutor {
     public void execute() {
 //        SchemaCache schemaCache = new SchemaCacheImpl();
         ModelDesignSchema modelDesignSchema = this.schemaKeyDictionary.getModelDesignMap().get("/model-design/retail/recommendation");
-
         modelDesignSchema.getCriteria().getFetchMap().forEach((k, v) -> {
             System.out.println("Key: " + k + " Value: " + v);
         });
+
+//        ModelDesignFetchRequest modelDesignFetchRequest = modelDesignSchema.getCriteria().getFetchMap().get("row_fetch_condition");
+        ModelDesignFetchRequest modelDesignFetchRequest = modelDesignSchema.getCriteria().getFetchMap().get("customer_product.csv");
+        ModelFetchCondition rowFetchCondition = modelDesignFetchRequest.getRowFetchCondition();
+        ModelFetchCondition columnFetchCondition = modelDesignFetchRequest.getColumnFetchCondition();
+
+        DatabaseQuery retailCustomersDatabaseQuery = rowFetchCondition.getKnowledge().getConditionList().get(0);
 
         log.info("Loading Retail Customers data from ArangoDB...");
         Dataset<Row> retailCustomersDf = this.arangoDataframeLoader.retailCustomersDataframe();
