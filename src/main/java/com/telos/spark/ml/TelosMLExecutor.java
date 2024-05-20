@@ -3,16 +3,20 @@ package com.telos.spark.ml;
 import static org.apache.spark.sql.functions.*;
 
 import com.telos.cortex.model.design.ModelDesignSchema;
-import com.telos.repository.fetch.DatabaseQuery;
 import com.telos.repository.fetch.ModelDesignFetchRequest;
 import com.telos.repository.fetch.ModelFetchCondition;
 import com.telos.schema.SchemaKeyDictionary;
 import com.telos.sdk.commons.SchemaCache;
 import com.telos.spark.conf.SparkProperties;
+import com.telos.spark.context.Context;
+import com.telos.spark.context.DefaultContext;
 import com.telos.spark.data.ArangoDataFetcher;
+import com.telos.spark.data.MongoDataFetcher;
+import com.telos.spark.data.SparkSQLFetcher;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
+import org.apache.spark.sql.SparkSession;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -21,33 +25,29 @@ public class TelosMLExecutor {
 
   private final ArangoDataFetcher arangoDataFetcher;
 
+  private final MongoDataFetcher mongoDataFetcher;
+
+  private final SparkSQLFetcher sparkSQLFetcher;
+
   private final SchemaKeyDictionary schemaKeyDictionary;
+
+  private final SparkSession sparkSession;
 
   private final SparkProperties sparkProperties;
 
   public TelosMLExecutor(
-      ArangoDataFetcher arangoDataFetcher,
+      final ArangoDataFetcher arangoDataFetcher,
+      final MongoDataFetcher mongoDataFetcher,
+      final SparkSQLFetcher sparkSQLFetcher,
       final SchemaCache schemaCache,
+      final SparkSession sparkSession,
       final SparkProperties sparkProperties) {
     this.arangoDataFetcher = arangoDataFetcher;
+    this.mongoDataFetcher = mongoDataFetcher;
+    this.sparkSQLFetcher = sparkSQLFetcher;
     this.schemaKeyDictionary = schemaCache.initModelTrainingSchema();
     this.sparkProperties = sparkProperties;
-  }
-
-  public Dataset<Row> fetchKnowledge(final ModelDesignFetchRequest rowFetchRequest) {
-    ModelFetchCondition rowFetchCondition = rowFetchRequest.getRowFetchCondition();
-    return rowFetchCondition.getKnowledge().getConditionList().stream()
-        .map(this.arangoDataFetcher::fetch)
-        .reduce(Dataset::crossJoin)
-        .orElse(null).cache();
-  }
-
-  public Dataset<Row> fetchDatum(final ModelDesignFetchRequest rowFetchRequest) {
-    ModelFetchCondition rowFetchCondition = rowFetchRequest.getRowFetchCondition();
-    return rowFetchCondition.getKnowledge().getConditionList().stream()
-            .map(this.arangoDataFetcher::fetch)
-            .reduce(Dataset::crossJoin)
-            .orElse(null).cache();
+    this.sparkSession = sparkSession;
   }
 
   public void execute() {
@@ -64,111 +64,71 @@ public class TelosMLExecutor {
     final ModelDesignFetchRequest modelDesignFetchRequest =
         modelDesignSchema.getCriteria().getFetchMap().get(this.sparkProperties.getModelKey());
 
-    final Dataset<Row> knowledgeDf = this.fetchKnowledge(modelDesignFetchRequest);
-    knowledgeDf.printSchema();
-    knowledgeDf.show();
+    Context context = DefaultContext.newInstance(true);
+    ModelFetchCondition rowFetchCondition = modelDesignFetchRequest.getRowFetchCondition();
 
-//    ModelFetchCondition rowFetchCondition = modelDesignFetchRequest.getRowFetchCondition();
-//    ModelFetchCondition columnFetchCondition = modelDesignFetchRequest.getColumnFetchCondition();
-//
-//    DatabaseQuery retailCustomersDatabaseQuery =
-//        rowFetchCondition.getKnowledge().getConditionList().get(0);
-//    Dataset<Row> retailCustomersDf = this.arangoDataFetcher.fetch(retailCustomersDatabaseQuery);
-//    long customersCount = retailCustomersDf.count();
-//    System.out.println("customersCount: " + customersCount);
-//    retailCustomersDf.printSchema();
-//    retailCustomersDf.show();
-//
-//    DatabaseQuery retailProductsDatabaseQuery =
-//        rowFetchCondition.getKnowledge().getConditionList().get(1);
-//    Dataset<Row> retailProductsDf = this.arangoDataFetcher.fetch(retailProductsDatabaseQuery);
-//    long productsCount = retailProductsDf.count();
-//    System.out.println("productsCount: " + productsCount);
-//    retailProductsDf.printSchema();
-//    retailProductsDf.show();
+    rowFetchCondition
+        .getKnowledge()
+        .getConditionList()
+        .forEach(
+            databaseQuery -> {
+              final Dataset<Row> dataframe =
+                  switch (databaseQuery.getDataSourceType()) {
+                    case DATA_SOURCE_TYPE_ARANGO -> this.arangoDataFetcher.fetch(databaseQuery);
+                    case DATA_SOURCE_TYPE_SPARK -> {
+                      System.out.println("???");
+                      yield this.mongoDataFetcher.fetch(databaseQuery, context);
+                    }
+                    default ->
+                        throw new IllegalArgumentException(
+                            "Invalid data source type: " + databaseQuery.getDataSourceType());
+                  };
+              context.put(databaseQuery.getResultSet(), dataframe.cache());
+              dataframe.printSchema();
+              dataframe.show();
+            });
 
-    //        log.info("Loading Retail Customers data from ArangoDB...");
-    //        Dataset<Row> retailCustomersDf =
-    // this.arangoDataframeLoader.retailCustomersDataframe();
-    //        System.out.println("retailCustomersDf Count: " + retailCustomersDf.count());
-    //        //    retailCustomersDf.printSchema();
-    //        //    retailCustomersDf.show(5, false);
-    //
-    //        log.info("Loading Products data from ArangoDB...");
-    //        Dataset<Row> productsDf = this.arangoDataframeLoader.productsDataframe();
-    //        System.out.println("productsDf Count: " + productsDf.count());
-    //        //    productsDf.printSchema();
-    //        //    productsDf.show(5, false);
+//    final String featuresQuery =
+//        "SELECT * from customer_product WHERE `62` in (1070473321023113722, 1256622632906443508) "
+//            + "and `68` in (2662899881406969352, 4276267623114056369) and feature_id in (124, 128, 129)";
 
-    //        Dataset<Row> customerProductsDf = retailCustomersDf.crossJoin(productsDf);
-    //        customerProductsDf.printSchema();
-    //        customerProductsDf.show(10000, false);
-    //        System.out.println("customerProductsDf Count: " + customerProductsDf.count());
+    ModelFetchCondition columnFetchCondition = modelDesignFetchRequest.getColumnFetchCondition();
+
+    columnFetchCondition
+        .getFeature()
+        .getConditionList()
+        .forEach(
+            databaseQuery -> {
+              final Dataset<Row> dataframe =
+                  switch (databaseQuery.getDataSourceType()) {
+                    case DATA_SOURCE_TYPE_MONGO -> this.mongoDataFetcher.fetch(databaseQuery, context);
+                    case DATA_SOURCE_TYPE_SPARK -> {
+                      System.out.println("???");
+                      yield this.sparkSQLFetcher.fetch(databaseQuery, context);
+                    }
+                    default ->
+                        throw new IllegalArgumentException(
+                            "Invalid data source type: " + databaseQuery.getDataSourceType());
+                  };
+              context.put(databaseQuery.getResultSet(), dataframe);
+              dataframe.printSchema();
+              dataframe.show();
+            });
+
+    //    featuresDf.createOrReplaceTempView("features_pivot");
     //
-    //        log.info("Loading Features data from MongoDB...");
-    //        Dataset<Row> featuresDf = this.mongoDataframeLoader.featuresDataframe();
-    //        featuresDf = featuresDf.groupBy(CUSTOMER_ID, PRODUCT_ID).pivot(concat(lit("feature_"),
-    // featuresDf.col("feature_id"))).agg(functions.first("feature_value"));
-    //        System.out.println("featuresDf Count: " + featuresDf.count());
-    //        //    //    featuresDf.printSchema();
-    //        //    //    featuresDf.show(5000, false);
-    //        //
-    //        log.info("Loading Inferences data from MongoDB...");
-    //        Dataset<Row> inferencesDf = this.mongoDataframeLoader.inferencesDataframe();
-    //        inferencesDf = inferencesDf.groupBy(CUSTOMER_ID,
-    // PRODUCT_ID).pivot(concat(lit("inference_"),
-    // inferencesDf.col("inference_id"))).agg(functions.first("inference_value"));
-    //        System.out.println("inferencesDf Count: " + inferencesDf.count());
-    //        //    inferencesDf.printSchema();
-    //        //    inferencesDf.show(5, false);
-    //        //
-    //        log.info("Loading Labels data from MongoDB...");
-    //        Dataset<Row> labelsDf = this.mongoDataframeLoader.labelsDataframe();
-    //        labelsDf = labelsDf.groupBy(CUSTOMER_ID, PRODUCT_ID).pivot(concat(lit("label_"),
-    // labelsDf.col("label_id"))).agg(functions.first("label_value"));
-    //        System.out.println("labelsDf Count: " + labelsDf.count());
-    //        //    labelsDf.printSchema();
-    //        //    labelsDf.show(5, false);
+    //    //    featuresDf =
+    //    //        this.sparkSession.sql(
+    //    //            "SELECT * FROM features_pivot FOR PIVOT (concat(lit(\"feature_\"),
+    //    // col(\"feature_id\")) aggregate first(\"feature_value\"))");
     //
-    //        // ----------- Joins -----------
-    //        Dataset<Row> customerProductFeaturesDf = customerProductsDf.join(featuresDf,
-    // customerProductsDf.col(CUSTOMER_ID).equalTo(featuresDf.col(CUSTOMER_ID)).and(customerProductsDf.col(PRODUCT_ID).equalTo(featuresDf.col(PRODUCT_ID))), LEFT).drop(featuresDf.col(CUSTOMER_ID), featuresDf.col(PRODUCT_ID));
-    //        System.out.println("customerProductFeaturesDf Count: " +
-    // customerProductFeaturesDf.count());
-    //        //    labelsDf.printSchema();
-    //        //    customerProductFeaturesDf.show(5000, false);
-    //
-    //        Dataset<Row> customerProductFeatureInferencesDf =
-    // customerProductFeaturesDf.join(inferencesDf,
-    // customerProductFeaturesDf.col(CUSTOMER_ID).equalTo(inferencesDf.col(CUSTOMER_ID)).and(customerProductFeaturesDf.col(PRODUCT_ID).equalTo(inferencesDf.col(PRODUCT_ID))), LEFT).drop(inferencesDf.col(CUSTOMER_ID), inferencesDf.col(PRODUCT_ID));
-    //        System.out.println("customerProductFeatureInferencesDf Count: " +
-    // customerProductFeatureInferencesDf.count());
-    //        //    customerProductFeatureInferencesDf.show(5000, false);
-    //
-    //        Dataset<Row> resultDf = customerProductFeatureInferencesDf.join(labelsDf,
-    // customerProductFeatureInferencesDf.col(CUSTOMER_ID).equalTo(labelsDf.col(CUSTOMER_ID)).and(customerProductFeatureInferencesDf.col(PRODUCT_ID).equalTo(labelsDf.col(PRODUCT_ID))), LEFT).drop(labelsDf.col(CUSTOMER_ID), labelsDf.col(PRODUCT_ID));
-    //        System.out.println("resultDf Count: " + resultDf.count());
-    //        //    resultDf.show(5000, false);
-    //        //
-    //        final String[] customerProductColumns = {CUSTOMER_ID, CUSTOMER_NAME, PRODUCT_ID,
-    // PRODUCT_NAME};
-    //        final String[] columns = resultDf.columns();
-    //
-    //        String filterRowsWithAllColNulls = Arrays.stream(columns).filter(colName ->
-    // !StringUtils.equalsAnyIgnoreCase(colName, customerProductColumns)).map(columnName ->
-    // col(columnName).isNotNull().toString()).collect(Collectors.joining(" OR "));
-    //
-    //        System.out.println("????? filterRowsWithAllColNulls -->" + filterRowsWithAllColNulls);
-    //
-    //        resultDf = resultDf.filter(filterRowsWithAllColNulls);
-    //        System.out.println("Sanitized resultDf Count: " + resultDf.count());
-    //        //    resultDf.show(5000, false);
-    //        //
-    //        // Writing the DataFrame to a Parquet file
-    //        resultDf.write().mode(SaveMode.Overwrite) // Specify the save mode: overwrite, append,
-    // ignore, error,
-    //                // errorifexists
-    //                .option(SparkOptions.Common.HEADER, true) // Include header
-    //                .parquet("spark-mongodb-arangodb-demo/export/output.parquet");
+    //    featuresDf =
+    //        this.sparkSession.sql(
+    //            """
+    //                    SELECT * FROM features_pivot PIVOT (first(feature_value) FOR feature_id IN
+    // (124, 125, 127, 128, 121, 153))
+    //                    """);
+    //    featuresDf.printSchema();
+    //    featuresDf.show(false);
   }
 }

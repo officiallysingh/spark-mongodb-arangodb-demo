@@ -35,6 +35,7 @@ public class SparkOptions {
     public static final String DATABASE = "database";
     public static final String COLLECTION = "collection";
     public static final String QUERY = "query";
+    public static final String PROJECTION = "projection";
 
     public static final String READ_CONNECTION_URI = "spark.mongodb.read.connection.uri";
   }

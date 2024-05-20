@@ -1,7 +1,6 @@
 package com.telos.spark.data;
 
-import static org.apache.commons.lang3.StringUtils.isBlank;
-import static org.apache.commons.lang3.StringUtils.isNoneBlank;
+import static org.apache.commons.lang3.StringUtils.*;
 
 import com.telos.repository.fetch.DatabaseQuery;
 import com.telos.spark.conf.SparkOptions;
@@ -21,7 +20,6 @@ import org.springframework.stereotype.Component;
 public class ArangoDataFetcher {
 
   private static final String SELECT_TEMPLATE = "FOR ${collection} IN ${collection}";
-//  private static final String FILTER_TEMPLATE = "FILTER ${filter}";
   private static final String RETURN_PROJECTION_TEMPLATE = "RETURN {${projection}}";
   private static final String RETURN_COLLECTION_TEMPLATE = "RETURN ${collection}";
 
@@ -63,16 +61,21 @@ public class ArangoDataFetcher {
       final String selectClause =
           StringSubstitutor.replace(SELECT_TEMPLATE, Map.of("collection", collection));
       final String filterClause =
-          isNoneBlank(filter)
-              ? filter
+          isNotBlank(filter)
+              ? StringSubstitutor.replace(filter, Map.of("collection", collection))
               : "";
 
-      final String returnClause =
-          isNoneBlank(projection)
-              ? StringSubstitutor.replace(
-                  RETURN_PROJECTION_TEMPLATE, Map.of("projection", projection))
-              : StringSubstitutor.replace(
-                  RETURN_COLLECTION_TEMPLATE, Map.of("collection", collection));
+      final String returnClause;
+      if (isNotBlank(projection)) {
+        final String finalProjection =
+            StringSubstitutor.replace(projection, Map.of("collection", collection));
+        returnClause =
+            StringSubstitutor.replace(
+                RETURN_PROJECTION_TEMPLATE, Map.of("projection", finalProjection));
+      } else {
+        returnClause =
+            StringSubstitutor.replace(RETURN_COLLECTION_TEMPLATE, Map.of("collection", collection));
+      }
 
       final String query = (selectClause + " " + filterClause + " " + returnClause).trim();
 

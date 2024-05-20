@@ -31,7 +31,8 @@
         <spark.compat.version>3.4</spark.compat.version>
 <!--        <spark.version>3.5.1</spark.version>-->
 <!--        <spark.compat.version>3.5</spark.compat.version>-->
-        <mongodb-spark-datasource.version>10.2.3</mongodb-spark-datasource.version>
+<!--        <mongodb-spark-datasource.version>10.2.3</mongodb-spark-datasource.version>-->
+        <mongodb-spark-datasource.version>10.3.0</mongodb-spark-datasource.version>
         <arangodb-spark-datasource.version>1.6.0</arangodb-spark-datasource.version>
 
         <telos-proto.version>1.0-SNAPSHOT</telos-proto.version>

@@ -82,3 +82,22 @@ docker run -it --rm \
     --packages="com.arangodb:arangodb-spark-datasource-3.4_2.12:$ARANGO_SPARK_VERSION" \
     --class Demo /demo/target/demo-$ARANGO_SPARK_VERSION.jar
 ```
+
+## Fetch Conditions
+### ArangoDB
+* Collection: Name of collection e.g. `retail_customer`
+* Query: Arrango Query (AQL format) `FILTER retail_customer._key IN ["1000", "1001", "1002"]` or `LIMIT 100`
+* Projections: Comma seperated list of columns to return `customer_id: retail_customer._key`. 
+Note that collection name is required in right side of colon (Multiple allowed)
+* ResultSet: Unique Name of DataFrame to store result e.g. `retailCustomersDf`, it can be referred in subsequent SparkSQL queries
+* DataSourceType: `DataSourceType.DATA_SOURCE_TYPE_ARANGO`
+
+### MongoDB
+Spark MongoDB connector does not support queries and projections directly, 
+but they are pushed with additional SparkSQL query on the resultset of the collection fetched.
+* Collection: Name of collection e.g. `customer_product`
+* Query: Should be SparkSQL format e.g. `FILTER customer._key IN ["1000", "1001", "1002"]` or `LIMIT 100`
+* Projections: Comma seperated list of columns to return `customer_id: retail_customer._key`.
+  Note that collection name is required in right side of colon (Multiple allowed)
+* ResultSet: Unique Name of DataFrame to store result e.g. `retailCustomersDf`, it can be referred in subsequent SparkSQL queries
+* DataSourceType: `DataSourceType.DATA_SOURCE_TYPE_MONGO`
