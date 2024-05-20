@@ -1,6 +1,7 @@
 logs/
 **/*.log
 
+/src/main/resources/config/application-local.yml
 export/
 
 ### Maven ###

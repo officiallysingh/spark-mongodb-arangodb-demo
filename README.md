@@ -86,9 +86,8 @@ docker run -it --rm \
 ## Fetch Conditions
 ### ArangoDB
 * Collection: Name of collection e.g. `retail_customer`
-* Query: Arrango Query (AQL format) `FILTER retail_customer._key IN ["1000", "1001", "1002"]` or `LIMIT 100`
-* Projections: Comma seperated list of columns to return `customer_id: retail_customer._key`. 
-Note that collection name is required in right side of colon (Multiple allowed)
+* Query: Arrango Query (AQL format) `FILTER ${collection}._key IN ["1000", "1001", "1002"]` or `LIMIT 100`
+* Projections: Comma seperated list of columns to return `customer_id: ${collection}._key` (Multiple allowed)
 * ResultSet: Unique Name of DataFrame to store result e.g. `retailCustomersDf`, it can be referred in subsequent SparkSQL queries
 * DataSourceType: `DataSourceType.DATA_SOURCE_TYPE_ARANGO`
 
@@ -96,8 +95,15 @@ Note that collection name is required in right side of colon (Multiple allowed)
 Spark MongoDB connector does not support queries and projections directly, 
 but they are pushed with additional SparkSQL query on the resultset of the collection fetched.
 * Collection: Name of collection e.g. `customer_product`
-* Query: Should be SparkSQL format e.g. `FILTER customer._key IN ["1000", "1001", "1002"]` or `LIMIT 100`
-* Projections: Comma seperated list of columns to return `customer_id: retail_customer._key`.
-  Note that collection name is required in right side of colon (Multiple allowed)
+* Query: Should be in SparkSQL format e.g. `\`68\` in (SELECT customer_id from ${retailCustomersDf}) and `62` in (SELECT product_id from ${retailProductsDf})`
+* Projections: Comma seperated list of columns to return `\`68\` as customer_id, \`62\` as product_id, quantity, feature_id, feature_value`.
+* ResultSet: Unique Name of DataFrame to store result e.g. `retailCustomersDf`, it can be referred in subsequent SparkSQL queries
+* DataSourceType: `DataSourceType.DATA_SOURCE_TYPE_MONGO`
+
+### Spark
+Spark SQL can be executed on Spark Datasets referred to as ${resultset name}, already available in context.
+* Collection: Not required as of now.
+* Query: Should be valid Spark SQL query e.g. ``
+* Projections: Not required as of now.
 * ResultSet: Unique Name of DataFrame to store result e.g. `retailCustomersDf`, it can be referred in subsequent SparkSQL queries
 * DataSourceType: `DataSourceType.DATA_SOURCE_TYPE_MONGO`
